@@ -1,387 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="utf-8"> 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>الإِعْلَانُ عَنِ التَّوْظِيفِ (مسابقة على أساس الشّهادات)</title>
-    
-    <!-- تحميل مكتبة PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <style>
-        /* استيراد خط Amiri للعنوان الرئيسي */
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
-        
-        /* 🟢 تنسيقات شريط الإجراءات (الجديدة) 🟢 */
-        .actions-bar {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000; /* قيمة عالية لضمان ظهوره */
-        }
-
-        .action-button {
-            padding: 10px 18px;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            transition: opacity 0.3s;
-            font-weight: bold;
-        }
-
-        .back-to-list-button {
-            background-color: #0d47a1; /* لون أزرق داكن لتمييزه */
-        }
-        
-        .print-button {
-            background-color: #28a745; /* لون أخضر للطباعة */
-        }
-
-        .download-button {
-            background-color: #ffc107; /* لون أصفر للتحميل */
-        }
-
-        .action-button:hover {
-            opacity: 0.8;
-        }
-        
-        /* ------------------------------------------- */
-        /* ⚠️ بداية التنسيقات الأصلية للصفحة ⚠️ */
-        
-        body {
-            font-family: "Amiri", "Cairo", serif;
-            color: #333;
-            direction: rtl;
-            margin: 0;
-            padding: 0;
-            /* خلفية إشراق وجاذبية: تدرج أزرق سماوي ناعم */
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            /* هامش علوي للسماح بظهور شريط الأزرار المثبت */
-            padding-top: 70px; 
-        }
-
-        .document-container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 40px;
-            /* إطار احترافي */
-            border: 4px solid #1e88e5; 
-            background-color: #ffffff; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            line-height: 1.8;
-            text-align: right;
-        }
-        
-        .header-info { 
-            text-align: center; /* توسيط مطابق للنسخة المتفق عليها */
-            margin-bottom: 30px; 
-            font-size: 1.2em; 
-            font-weight: 700; 
-            line-height: 1.8;
-            color: #0d47a1; 
-        }
-        
-        .document-title { 
-            text-align: center; 
-            margin: 25px 0 40px; 
-            font-size: 2em; 
-            font-weight: 900; 
-            color: #1e88e5; 
-            border-bottom: 5px solid #1e88e5;
-            padding-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .document-title .arabic-title {
-            /* خط كلاسيكي مميز مع التشكيل */
-            font-family: 'Amiri', 'Traditional Arabic', serif; 
-            font-weight: 700;
-            line-height: 1.2;
-            display: block; 
-        }
-
-        .document-container p {
-            margin-bottom: 20px;
-            text-align: justify;
-            font-size: 1.05em;
-        }
-
-        /* تنسيق الجدول */
-        .document-container table { 
-            width:100%; 
-            border-collapse: collapse; 
-            margin: 30px 0;
-            font-size: 0.95em;
-        }
-        .document-container th, 
-        .document-container td { 
-            border: 1px solid #90caf9; 
-            padding: 12px 10px;
-            text-align: center;
-            vertical-align: middle;
-        }
-        .document-container th { 
-            background-color: #42a5f5; 
-            color: white; 
-            font-weight: 800; 
-        }
-        .document-container td {
-             background-color: #ffffff;
-        }
-
-        /* تنسيق الفقرات التفصيلية */
-        .details-section {
-            margin-top: 25px;
-            padding: 15px;
-            border-left: 5px solid #66bb6a; 
-            background-color: #f1f8e9; 
-            border-radius: 5px;
-        }
-        .details-section strong {
-            display: block;
-            font-weight: bold;
-            text-decoration: underline;
-            margin-bottom: 10px;
-            font-size: 1.15em;
-            color: #388e3c; 
-        }
-        .details-section ul {
-            list-style: none;
-            padding-right: 0;
-            margin-right: 0;
-        }
-        .details-section ul li {
-            margin-bottom: 10px;
-            text-align: justify;
-            padding-right: 20px;
-            position: relative;
-        }
-        .details-section ul li::before {
-            content: "✅"; 
-            position: absolute;
-            right: 0;
-            font-weight: bold;
-        }
-
-        /* ⚠️ تم حذف التنسيق الأصلي لـ .back-button لأنه تم دمجه في .actions-bar */
-
-        /* تنسيق الطباعة (مهم) */
-        @media print {
-            body { background: none; padding-top: 0; }
-            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 20px; }
-            /* إخفاء شريط الإجراءات بالكامل عند الطباعة */
-            .actions-bar { display: none !important; } 
-            .details-section { border-left: 2px solid #333; background-color: transparent; }
-            .details-section ul li::before { content: "•"; }
-        }
-
-        /* رسالة التحميل */
-        #loadingMessage {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            z-index: 10000;
-            font-family: 'Amiri', serif;
-            font-size: 16px;
-            text-align: center;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
-    
-    <div class="document-container">
-        
-        <div class="header-info">
-            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
-            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنيّة</p>
-        </div>
-        
-        <h3 class="document-title">
-            <span class="arabic-title">إِعْلَانُ تَوْظِيفٍ عَنْ طَرِيقِ الْمُسَابَقَةِ عَلَى أَسَاسِ الشَّهَادَاتِ</span>
-        </h3>
-        
-        <p style="font-weight: bold; font-size: 1.1em; margin-top: 20px;">
-            تعلن ................... (بيان تسميّة المؤسّسة أو الإدارة العموميّة المعنيّة) عن فتح مسابقة (ات) للتّوظيف على أساس الشّهادة في الرّتب المبيّنة أدناه:
-        </p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>الرّتبة</th>
-                    <th>نمط التّوظيف</th>
-                    <th>شروط الالتحاق</th>
-                    <th>التخصّص المطلوب</th>
-                    <th>عدد المناصب الماليّة المفتوحة</th>
-                    <th>مكان التّعيين</th>
-                    <th>شروط أخرى</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>رتبة نموذجية</td><td>على أساس الشهادات</td><td>مؤهل دراسي</td><td>تخصص إداري</td><td>1</td><td>مكان العمل</td><td>لا يوجد</td></tr>
-                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-            </tbody>
-        </table>
-        
-        <div class="details-section">
-            <strong>يجب أن يحتوي ملفّ الترّشح على الوثائق التّالية:</strong>
-            <ul>
-                <li>ذكر الوثائق المحدّدة في القرار المحدّد لإطار تنظيم المسابقات والامتحانات والفحوص المهنيّة (تحديد القطاع المعني) وفي حالة عدم وجوده ذكر الوثائق المحدّدة في التّعليمة رقم 01 المؤرّخة في 20 فيفري 2019م المتعلّقة بتطبيق أحكام المرسوم التنفيذي رقم 12-194 المؤرّخ في 25 أبريل 2012م المحدّد لكيفيّة تنظيم المسابقات والامتحانات والفحوص المهنيّة في المؤسّسات والإدارات العموميّة وإجرائها.</li>
-            </ul>
-        </div>
-        
-        <div class="details-section">
-            <strong>تحديد آجال التّسجيلات وإيداع الملفّات:</strong>
-            <ul>
-                <li>تحديد فترة التّسجيلات بـ (أيام العمل) وفقا لقرار/ مقرّر فتح عمليّة التّوظيف وكذا مكان (عنوان) إيداع أو إرسال ملفّات التّرشح.</li>
-                <li>لا تؤخذ بعين الاعتبار الملفّات النّاقصة أو تلك الواردة خارج آجال التّسجيلات.</li>
-            </ul>
-        </div>
-        
-        <div class="details-section">
-            <strong>تحديد مكان إجراء المقابلة:</strong>
-            <ul>
-                <li>تحديد مكان إجراء المقابلة (عند الاقتضاء).</li>
-            </ul>
-        </div>
-        
-        <div class="details-section">
-            <strong>تحديد معايير الانتقاء:</strong>
-            <ul>
-                <li>ذكر معايير الانتقاء المحدّدة في القرار المحدّد لإطار تنظيم المسابقات والامتحانات والفحوص المهنيّة (تحديد القطاع المعني) وفي حالة عدم وجوده ذكر المعايير المحدّدة في المنشور رقم 07 المؤرّخ في 28 أبريل 2011م المتعلّق بمعايير الانتقاء في المسابقات على أساس الشّهادة للتّوظيف في رتب الوظيفة العموميّة.</li>
-            </ul>
-        </div>
-        
-        <div class="details-section">
-            <strong>طرق الطّعن للمترشّحين غير المقبولة ملفاتهم:</strong>
-            <ul>
-                <li>تحديد طرق الطعن التي يمكن أن يتقدّم بها المترشّحون الذين لم تقبل ملفّاتهم للمشاركة في المسابقة طبقا لأحكام المادّة 16 المرسوم التّنفيذي رقم: 12-194 المؤرّخ في 25 أبريل 2012 م المذكور أعلاه.</li>
-            </ul>
-        </div>
-
-    </div>
-
-    <!-- إضافة شريط الأزرار الجديد مع تحميل PDF حقيقي -->
-    <script>
-        // إنشاء شريط التنقل الجديد
-        const navigationBar = document.createElement('div');
-        navigationBar.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            gap: 12px;
-            background: rgba(63, 0, 92, 0.95);
-            padding: 15px;
-            border-radius: 50px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-        `;
-
-        navigationBar.innerHTML = `
-            <!-- زر الرجوع -->
-            <button onclick="window.location.href='../index.html'" style="
-                background: linear-gradient(135deg, #ff0000, #cc0000);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 22px;
-                font-weight: bold;
-            " title="العودة إلى index.html">←</button>
-
-            <!-- زر الرئيسية -->
-            <button onclick="window.location.href='../../02_index.html'" style="
-                background: linear-gradient(135deg, #007bff, #0056b3);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="الذهاب إلى 02_index.html">🏠</button>
-
-            <!-- زر الطباعة -->
-            <button onclick="window.print()" style="
-                background: linear-gradient(135deg, #28a745, #1e7e34);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="طباعة الصفحة">🖨️</button>
-
-            <!-- زر التحميل الحقيقي -->
-            <button onclick="downloadAsPDF()" style="
-                background: linear-gradient(135deg, #ffc107, #e0a800);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="تحميل كـ PDF">📄</button>
-        `;
-
-        document.body.appendChild(navigationBar);
-
-        // دالة تحميل PDF حقيقية
-        function downloadAsPDF() {
-            // عرض رسالة التحميل
-            document.getElementById('loadingMessage').style.display = 'block';
-            
-            // إخفاء شريط الأزرار مؤقتاً
-            navigationBar.style.display = 'none';
-            
-            // خيارات PDF
-            const element = document.querySelector('.document-container');
-            const opt = {
-                margin: [10, 10, 10, 10],
-                filename: 'إعلان_التوظيف_مسابقة_الشهادات.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            
-            // إنشاء وتحميل PDF
-            html2pdf().set(opt).from(element).save().then(() => {
-                // إعادة إظهار شريط الأزرار
-                navigationBar.style.display = 'flex';
-                document.getElementById('loadingMessage').style.display = 'none';
-            });
-        }
-
-        // إزالة شريط الإجراءات القديم
-        const oldActionsBar = document.querySelector('.actions-bar');
-        if (oldActionsBar) {
-            oldActionsBar.remove();
-        }
-    </script>
-</body>
-</html>
