@@ -317,64 +317,73 @@
         .step-circle.hidden-on-zoom {
             opacity: 0.2; 
         }
-        /* ... كل كودك السابق يبقى كما هو ... */
+     @media (max-width: 480px) {
 
+/* =============== RESET PHONE VIEW =============== */
 
-/* =============================== */
-/* 📱 إصلاح الجنريك على شاشات الهاتف */
-/* =============================== */
-@media (max-width: 480px) {
-
-    .title-sequence h1 { font-size: 18px !important; }
-    .title-sequence h2 { font-size: 22px !important; }
-    .title-sequence h3 { font-size: 26px !important; }
-
-    .title-sequence {
-        transform: translate(-50%, -60%) !important;
-    }
-
-    .content-presentation h1 {
-        font-size: 20px !important;
-        white-space: normal !important;
-        line-height: 1.4 !important;
-    }
-
-    .circle-carousel {
-        height: 55vh !important;
-    }
-
-    .step-circle {
-        width: 220px !important;
-        height: 140px !important;
-        border-width: 2px !important;
-        position: relative !important;
-        margin: 10px auto !important;
-        transform: none !important;
-    }
-
-    .step-circle i { font-size: 30px !important; }
-    .step-circle span { font-size: 14px !important; }
-
-    .step-circle.zoomed {
-        width: 260px !important;
-        height: 160px !important;
-    }
-
-    .step-circle-content {
-        transform: translate(-50%, -50%) !important;
-    }
-
-    body {
-        overflow: visible !important;
-    }
+* {
+    transform: none !important;
 }
-  /* ⚡ إصلاح شعار الخلفية على شاشة الهاتف – النسخة الجديدة */
+
+.content-presentation h1 {
+    font-size: 20px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+}
+
+.circle-carousel {
+    height: auto !important;
+    padding-top: 20px !important;
+}
+
+.step-circle {
+    width: 55% !important;
+    height: 130px !important;
+    margin: 12px auto !important;
+    position: relative !important;
+    border-width: 2px !important;
+    opacity: 1 !important;
+}
+
+.step-circle i {
+    font-size: 28px !important;
+}
+
+.step-circle span {
+    font-size: 14px !important;
+}
+
+.step-circle[data-step] {
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+.step-circle.zoomed {
+    width: 70% !important;
+    height: 150px !important;
+    border-width: 2px !important;
+}
+
+.content-presentation {
+    margin-top: 0 !important;
+    opacity: 1 !important;
+}
+
+body {
+    overflow-y: auto !important;
+}
+
+/* تصغير الشعار الخلفي */
 .page-background {
-    background-size: 45% !important;           /* تصغير الشعار */
-    background-position: center 70% !important; /* وضعه أسفل قليلاً */
-    opacity: 0.08 !important;                  /* خفة الشعار */
-    background-repeat: no-repeat !important;   /* منع التكرار */
-    filter: grayscale(100%) blur(1px);         /* نفس تأثير الكمبيوتر */
+    background-size: 45% !important;
+    background-position: center 70% !important;
+    opacity: 0.08 !important;
+    background-repeat: no-repeat !important;
+    filter: grayscale(100%) blur(1px);
+}
+
 }
 
 </style>
@@ -525,6 +534,7 @@
     </script>
 </body>
 </html>
+
 
 
 
