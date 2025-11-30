@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>واجهة التقديم الديناميكية - المجلس الأعلى للغة العربية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* ========================================= */
+        /* === 1. المتغيرات والتنسيقات العامة === */
+        /* ========================================= */
+        :root {
+            /* متغيرات الوقت */
+            --duration: 2s;           
+            --delay-titles: 0s;       
+            --delay-content: 7s;      
+            --zoom-duration: 3000; 
+
+            /* 🟢 نظام الألوان المحدَّث: الخلفية متغيرة، العناوين ذهبية */
+            --color-bg-base: #113330; 
+            --color-highlight: white; 
+            --color-accent-bg: #1B4C47; 
+            --color-title-gold: #FFD700; 
+
+            /* 🟢 الألوان الجديدة للخلفية المتغيرة (الآن 4 ألوان) */
+            --color-red: #8B0000;    
+            --color-blue: #00008B;   
+            --color-yellow: #B8860B; 
+            --color-green: #008080; /* 🟢 اللون الأخضر الجديد */
+        }
+        
+        /* 🔑 تنسيق طبقة الخلفية (الشعار المغطي) */
+        .page-background {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; 
+            
+            background-image: url('icons/council_logo.png'); 
+            background-size: contain; 
+            background-position: center; 
+            background-repeat: no-repeat;
+            
+            background-color: #0D1A39; 
+            opacity: 0.15; 
+            
+            filter: grayscale(100%) blur(1px); 
+        }
+
+        body {
+            font-family: 'Amiri', serif;
+            margin: 0; padding: 0; min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            
+            color: var(--color-highlight);
+            overflow: hidden; 
+            position: relative;
+            cursor: pointer; 
+            transition: opacity 0.5s ease-in-out; 
+            
+            animation: changeBackground 20s infinite alternate; 
+        }
+
+        /* 🟢 مفتاح حركة تغيير الخلفية (4 ألوان) */
+        @keyframes changeBackground {
+            0%   { background-color: var(--color-red); }      
+            25%  { background-color: var(--color-blue); }     
+            50%  { background-color: var(--color-yellow); }   
+            75%  { background-color: var(--color-green); }    
+            100% { background-color: var(--color-red); }      
+        }
+
+        /* 🔑 ضمان أن العناصر الأمامية تظهر بوضوح */
+        .title-sequence, .content-presentation {
+            opacity: 1 !important; 
+            filter: none !important; 
+            z-index: 1;
+        }
+
+        /* ========================================= */
+        /* === 2. حركة العناوين الثلاثة (الكبر والتلاشي) === */
+        /* ========================================= */
+        .title-sequence {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            text-align: center; width: 90%; max-width: 800px;
+        }
+        .title-sequence h1, .title-sequence h2, .title-sequence h3 {
+            opacity: 0; position: absolute; top: 0; left: 50%;
+            transform: translate(-50%, 0) scale(0.5); 
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            font-weight: 700; 
+            white-space: nowrap;
+        }
+        
+        .title-sequence h1 { 
+            font-size: 45px; 
+            color: var(--color-title-gold);
+            animation: circular-reveal var(--duration) ease-in-out forwards var(--delay-titles); 
+        }
+        .title-sequence h2 { 
+            font-size: 60px; 
+            color: var(--color-title-gold);
+            animation: circular-reveal var(--duration) ease-in-out forwards calc(var(--delay-titles) + 2s);
+        }
+        .title-sequence h3 { 
+            font-size: 75px; 
+            color: var(--color-title-gold);
+            animation: circular-reveal var(--duration) ease-in-out forwards calc(var(--delay-titles) + 4s);
+        }
+
+        @keyframes circular-reveal { 
+            0% { opacity: 0; transform: translate(-50%, 0) scale(0.5); } 
+            20% { opacity: 1; transform: translate(-50%, 0) scale(1.0); } 
+            60% { opacity: 1; transform: translate(-50%, 0) scale(1.5); } 
+            100% { opacity: 0; transform: translate(-50%, 0) scale(1.5); visibility: hidden; } 
+        }
+        
+        @keyframes fadeIn { to { opacity: 1; } }
+
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        /* ========================================= */
+        /* === 4. عرض محتوى التطبيق (دولاب العرض) === */
+        /* ========================================= */
+        .content-presentation {
+            opacity: 0; 
+            position: relative; 
+            width: 100%; 
+            max-width: 1400px;
+            padding: 20px; 
+            text-align: center; 
+            transition: opacity 1s;
+            z-index: 1;
+            margin-top: -150px; 
+        }
+        
+        .content-presentation h1 {
+            white-space: nowrap; 
+            overflow: hidden;    
+            position: relative; 
+            display: inline-block; 
+            
+            font-size: 55px; 
+            color: var(--color-title-gold); 
+            
+            font-weight: 700;
+            margin-bottom: 30px; 
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            opacity: 0; 
+            animation: fadeIn 1s ease-out forwards calc(var(--delay-content) + 0.5s), 
+                       slowSpin 30s linear infinite calc(var(--delay-content) + 1.5s); 
+        }
+
+        @keyframes slowSpin {
+            0% { transform: translateX(-100%); } 
+            100% { transform: translateX(100%); } 
+        }
+
+        /* حاوية الدوائر: موقعها بالنسبة للـ content-presentation */
+        .circle-carousel { 
+            display: block; 
+            position: relative; 
+            width: 100%; 
+            height: 70vh; 
+            margin: 0 auto;
+        }
+
+        .step-circle {
+            width: 500px; 
+            height: 300px;
+            padding: 0;
+            
+            position: absolute; 
+            border-radius: 50%;
+            background-color: transparent; 
+            border: 4px solid var(--color-highlight);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2); 
+            font-size: 24px; 
+            animation: spin 15s linear infinite; 
+            
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), top 0.8s, left 0.8s, right 0.8s, bottom 0.8s, box-shadow 0.8s, opacity 0.5s, border-radius 0.8s, width 0.8s, height 0.8s, background-color 0.8s, border-color 0.8s; 
+            opacity: 0; 
+            
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        /* 🟢 ألوان مميزة لكل دائرة (بشفافية عالية) */
+        .step-circle[data-step="1"] { 
+            background-color: rgba(0, 77, 64, 0.2); 
+            border-color: rgba(128, 203, 196, 0.5); 
+        }
+        .step-circle[data-step="2"] { 
+            background-color: rgba(56, 142, 60, 0.2); 
+            border-color: rgba(165, 214, 167, 0.5); 
+        }
+        .step-circle[data-step="3"] { 
+            background-color: rgba(26, 35, 126, 0.2); 
+            border-color: rgba(121, 134, 203, 0.5);
+        }
+        .step-circle[data-step="4"] { 
+            background-color: rgba(106, 27, 154, 0.2); 
+            border-color: rgba(206, 147, 216, 0.5);
+        }
+        .step-circle[data-step="5"] { 
+            background-color: rgba(183, 28, 28, 0.2); 
+            border-color: rgba(239, 154, 154, 0.5);
+        }
+        .step-circle[data-step="6"] { 
+            background-color: rgba(230, 81, 0, 0.2); 
+            border-color: rgba(255, 204, 128, 0.5);
+        }
+
+        .step-circle-content { 
+            position: absolute; 
+            top: 50%; left: 50%; 
+            transform: translate(-50%, -50%) rotate(0deg); 
+            width: 90%; 
+            transition: transform 0.8s;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 🟢 تحديث لضمان ظهور الأيقونات والنصوص بلون واضح على الخلفيات الجديدة */
+        .step-circle i, .step-circle span {
+            color: var(--color-highlight); 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
+        }
+
+
+        /* 🔑 تحديد مواقع التناثر (التباعد) */
+        .step-circle[data-step="1"] { 
+            top: 5%; left: 0%; 
+            animation-name: spin, fadeIn;
+            animation-duration: 15s, 0.5s;
+            animation-timing-function: linear, ease-out;
+            animation-iteration-count: infinite, forwards;
+            animation-delay: 0s, calc(var(--delay-content) + 1.5s);
+        }
+        .step-circle[data-step="2"] { 
+            top: 0%; right: 0%; 
+            animation-name: spin, fadeIn;
+            animation-duration: 15s, 0.5s;
+            animation-timing-function: linear, ease-out;
+            animation-iteration-count: infinite, forwards;
+            animation-delay: -3s, calc(var(--delay-content) + 2.0s); 
+        }
+        .step-circle[data-step="3"] { 
+            bottom: 5%; left: 0%; 
+            animation-name: spin, fadeIn;
+            animation-duration: 15s, 0.5s;
+            animation-timing-function: linear, ease-out;
+            animation-iteration-count: infinite, forwards;
+            animation-delay: -6s, calc(var(--delay-content) + 2.5s);
+        }
+        .step-circle[data-step="4"] { 
+            bottom: 0%; right: 0%; 
+            animation-name: spin, fadeIn;
+            animation-duration: 15s, 0.5s;
+            animation-timing-function: linear, ease-out;
+            animation-iteration-count: infinite, forwards;
+            animation-delay: -9s, calc(var(--delay-content) + 3.0s);
+        }
+        .step-circle[data-step="5"] { 
+            top: 45%; left: 15%; 
+            animation-name: spin, fadeIn;
+            animation-duration: 15s, 0.5s;
+            animation-timing-function: linear, ease-out;
+            animation-iteration-count: infinite, forwards;
+            animation-delay: -12s, calc(var(--delay-content) + 3.5s);
+        }
+        .step-circle[data-step="6"] { 
+            top: 45%; right: 15%; 
+            animation-name: spin, fadeIn;
+            animation-duration: 15s, 0.5s;
+            animation-timing-function: linear, ease-out;
+            animation-iteration-count: infinite, forwards;
+            animation-delay: -15s, calc(var(--delay-content) + 4.0s); 
+        }
+        
+        .step-circle i { font-size: 70px; margin-bottom: 10px; } 
+
+        /* 🔑 تنسيقات الزوم التلقائي (العودة إلى الشكل البيضوي الأصلي عند التكبير) */
+        .step-circle.zoomed {
+            top: 50% !important; 
+            left: 50% !important; 
+            transform: translate(-50%, -50%) scale(1.1) rotate(0deg) !important; 
+            
+            width: 500px; 
+            height: 300px; 
+            border-radius: 50%;
+            
+            background-color: rgba(27, 76, 71, 0.5); /* الأخضر الأساسي بـ 50% شفافية */
+            border-color: var(--color-title-gold);
+            z-index: 10; opacity: 1;
+            box-shadow: 0 0 30px var(--color-title-gold), 0 0 50px var(--color-accent-bg);
+        }
+        
+        .step-circle.zoomed .step-circle-content i,
+        .step-circle.zoomed .step-circle-content span {
+            display: block; 
+            color: var(--color-title-gold); 
+        }
+
+        .step-circle.zoomed .step-circle-content {
+            transform: translate(-50%, -50%) rotate(0deg) !important; 
+        }
+
+        .step-circle.hidden-on-zoom {
+            opacity: 0.2; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-background"></div>
+
+    <div class="title-sequence" id="titleSequence">
+        <h1 id="title1">الجمهوريّة الجزائريّة الديمقراطيّة الشعبيّة</h1>
+        <h2 id="title2">رئاسة الجمهوريّة</h2>
+        <h3 id="title3">المجلس الأعلى للّغة العربيّة</h3>
+    </div>
+
+    <div class="content-presentation" id="contentPresentation">
+        <h1>دليل التّطوير المُتواصل في التّسيير الإداري للمَوارد البشريّة في المُؤسّسات والإدارات العمومِيّة- التّوظيف الإلكتروني أنموذجا-</h1>
+        
+        <div class="circle-carousel" id="circleCarousel">
+            
+            <div class="step-circle" data-step="1" data-title="الإعلان عن التوظيف" data-content="نشر إعلان التوظيف الرسمي عبر المنصات المعتمدة وتحديد الشروط والمناصب.">
+                <div class="step-circle-content"><i class="fas fa-bullhorn"></i><span>الخطوة 1: الإعلان عن التوظيف</span></div>
+            </div>
+
+            <div class="step-circle" data-step="2" data-title="التسجيل إلكترونياً" data-content="إنشاء حساب المترشح وملء البيانات الشخصية والأكاديمية عبر النظام الإلكتروني.">
+                <div class="step-circle-content"><i class="fas fa-user-plus"></i><span>الخطوة 2: التسجيل إلكترونياً</span></div>
+            </div>
+
+            <div class="step-circle" data-step="3" data-title="إيداع الملف" data-content="تحميل الوثائق والمستندات المطلوبة بصيغة رقمية والحصول على وصل الإيداع.">
+                <div class="step-circle-content"><i class="fas fa-cloud-upload-alt"></i><span>الخطوة 3: إيداع الملف</span></div>
+            </div>
+
+            <div class="step-circle" data-step="4" data-title="لجنة دراسة الملف" data-content="قيام اللجنة المختصة بالفرز والتدقيق الأولي للملفات المستوفاة للشروط.">
+                <div class="step-circle-content"><i class="fas fa-gavel"></i><span>الخطوة 4: لجنة دراسة الملف</span></div>
+            </div>
+
+            <div class="step-circle" data-step="5" data-title="القبول أو الرفض" data-content="إشعار المترشحين بقرارات القبول المبدئي للملف أو الرفض مع ذكر سبب عدم الأهلية.">
+                <div class="step-circle-content"><i class="fas fa-check-circle"></i><span>الخطوة 5: القبول أو الرفض</span></div>
+            </div>
+            
+            <div class="step-circle" data-step="6" data-title="النتائج النهائية" data-content="إعلان القوائم النهائية للمترشحين المقبولين وإجراءات التعيين الرسمي.">
+                <div class="step-circle-content"><i class="fas fa-award"></i><span>الخطوة 6: النتائج النهائية</span></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contentPresentation = document.getElementById('contentPresentation');
+            const titleSequence = document.getElementById('titleSequence');
+            const titleElements = titleSequence.querySelectorAll('h1, h2, h3');
+            const stepCircles = document.querySelectorAll('.step-circle');
+            
+            const DELAY_TITLES_ANIM = 2000;     
+            const DELAY_CONTENT = (DELAY_TITLES_ANIM * 3) + 1000; 
+            const ZOOM_DURATION = 3000; 
+            
+            const totalSteps = stepCircles.length; 
+            const CIRCLE_LOOP_DURATION = (totalSteps * ZOOM_DURATION) + 1000; 
+            const TOTAL_CYCLE_DURATION = DELAY_CONTENT + CIRCLE_LOOP_DURATION; 
+            
+            let autoZoomInterval = null;
+            let cycleTimeout = null;
+            let currentStep = 0;
+            let isTransitioning = false; 
+
+            // وظيفة الانتقال للصفحة الرئيسية (عند النقر)
+            function goToMainPage() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
+                clearInterval(autoZoomInterval); 
+                clearTimeout(cycleTimeout);
+                
+                document.body.style.opacity = '0'; 
+                
+                setTimeout(() => {
+                    window.location.href = '02_index.html'; 
+                }, 500); 
+            }
+
+            // وظيفة التحكم بتسلسل الزوم التلقائي
+            function zoomStep() {
+                stepCircles.forEach(c => {
+                    c.classList.remove('zoomed');
+                    c.classList.add('hidden-on-zoom');
+                    c.style.animationPlayState = 'running'; 
+                    c.querySelector('.step-circle-content').style.transform = 'translate(-50%, -50%) rotate(0deg)'; 
+                });
+                
+                const circle = stepCircles[currentStep];
+                circle.classList.add('zoomed');
+                circle.classList.remove('hidden-on-zoom');
+                
+                circle.style.animationPlayState = 'paused'; 
+                circle.querySelector('.step-circle-content').style.transform = 'translate(-50%, -50%) rotate(0deg)';
+                
+                currentStep = (currentStep + 1) % totalSteps; 
+            }
+
+            // بدء حلقة الزوم
+            function startCircleLoop() {
+                contentPresentation.style.opacity = '1';
+                stepCircles.forEach(c => c.classList.add('hidden-on-zoom'));
+                
+                currentStep = 0; 
+                zoomStep();
+                autoZoomInterval = setInterval(zoomStep, ZOOM_DURATION);
+            }
+
+            // وظيفة إعادة تعيين وتشغيل الدورة الكاملة (العناوين + الدوائر)
+            function startFullCycle() {
+                clearInterval(autoZoomInterval);
+                clearTimeout(cycleTimeout);
+                
+                titleSequence.style.display = 'block';
+                contentPresentation.style.opacity = '0';
+                
+                titleElements.forEach(el => {
+                    el.style.animation = 'none';
+                    void el.offsetWidth; 
+                    
+                    const id = el.id.slice(-1); 
+                    if (id === '1') el.style.animation = `circular-reveal ${DELAY_TITLES_ANIM}ms ease-in-out forwards 0ms`;
+                    if (id === '2') el.style.animation = `circular-reveal ${DELAY_TITLES_ANIM}ms ease-in-out forwards ${DELAY_TITLES_ANIM}ms`;
+                    if (id === '3') el.style.animation = `circular-reveal ${DELAY_TITLES_ANIM}ms ease-in-out forwards ${DELAY_TITLES_ANIM * 2}ms`;
+                });
+
+
+                setTimeout(() => {
+                    titleSequence.style.display = 'none';
+                    startCircleLoop(); 
+                }, DELAY_CONTENT);
+
+                cycleTimeout = setTimeout(() => {
+                    startFullCycle();
+                }, TOTAL_CYCLE_DURATION);
+            }
+
+            // البدء الأولي
+            startFullCycle();
+
+            // مراقب النقر (Click Listener) للانتقال الفوري
+            document.body.addEventListener('click', goToMainPage);
+        });
+    </script>
+</body>
+</html>

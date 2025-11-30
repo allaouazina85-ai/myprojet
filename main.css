@@ -1,0 +1,655 @@
+/* تضمين خطوط عربية */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;900&display=swap');
+
+/* ========================================= */
+/* === تعريف حركات الحركة (Animation Keyframes) === */
+/* ========================================= */
+@keyframes colorChange {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 0% 100%; }
+    75% { background-position: 100% 0%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* === تعريف حركة التأرجح === */
+@keyframes swing {
+    0% { transform: translateX(0px); }
+    25% { transform: translateX(5px); }
+    50% { transform: translateX(0px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0px); }
+}
+
+/* تنسيق الجسم الأساسي */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Amiri", serif;
+    color: #222;
+    text-align: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    position: relative;
+    z-index: 1; 
+}
+
+/* الخلفية المتحركة في أدنى طبقة */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; 
+    
+    background-image: 
+        linear-gradient(90deg, 
+            rgba(0, 123, 255, 0.3) 0%, 
+            rgba(255, 0, 0, 0.3) 25%, 
+            rgba(255, 193, 7, 0.3) 50%, 
+            rgba(40, 167, 69, 0.3) 75%, 
+            rgba(0, 123, 255, 0.3) 100%
+        ),
+        url('icons/council_logo.png');
+
+    background-repeat: no-repeat, no-repeat;
+    background-position: center center; 
+    background-size: 400% 400%, contain; 
+    animation: colorChange 20s ease infinite;
+}
+
+/* تنسيق الرأس (Header) */
+header {
+    width: 100%;
+    padding-top: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    position: relative; 
+    top: 0;
+    left: 0;
+    z-index: 80; 
+}
+
+/* تنسيق الحاوية الرئيسية للعناوين */
+.main-title {
+    width: 95%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+/* تنسيق العناوين (H1, H2, H3) */
+.main-title h1, .main-title h2, .main-title h3 {
+    font-size: 45px;
+    font-weight: 700;
+    width: 100%;
+    margin: 0;
+    line-height: 1.4;
+    color: #FFD700; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+}
+
+/* تعديل الهامش بين العناوين */
+.main-title h1 { margin-bottom: 5px; }
+.main-title h2 { margin-bottom: 5px; }
+
+/* ========================================= */
+/* === الأيقونات اليسرى === */
+/* ========================================= */
+.top-icons-left {
+    position: absolute;
+    top: 280px;
+    left: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    z-index: 100;
+}
+
+/* تنسيق عام لـ icon-btn */
+.icon-btn {
+    background: none;
+    border: none;
+    border-radius: 0;
+    width: auto;
+    height: auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s;
+    position: relative;
+    color: #222;
+    text-decoration: none;
+}
+
+.icon-btn:hover {
+    background: none;
+    transform: scale(1.1);
+}
+
+/* تكبير أيقونة الميكروفون فقط */
+.president-talk-btn i {
+    font-size: 45px;
+    color: #cc0000;
+}
+
+/* تنسيق أيقونة حول التطبيق */
+.about-app-btn {
+    background-color: #3f005c;
+    color: white;
+    border-radius: 8px;
+    width: auto;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 15px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.about-app-btn i {
+    font-size: 20px;
+}
+
+.about-app-btn:hover {
+    background-color: #5c008c;
+    transform: none;
+}
+
+/* زر التواصل المنبثق */
+.contact-menu-launcher {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* تنسيق زر التواصل الرئيسي */
+.contact-btn {
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    width: auto;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0 15px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.contact-btn:hover {
+    background-color: #0056b3;
+    transform: none;
+}
+
+/* حاوية الأزرار المنبثقة */
+.floating-actions {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.floating-actions.active {
+    display: flex;
+}
+
+/* تنسيق الأزرار الفرعية المنبثقة */
+.action-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+}
+
+.action-btn:hover {
+    background-color: #5a6268;
+}
+
+/* ========================================= */
+/* === الأيقونات اليمنى === */
+/* ========================================= */
+.top-icons-right {
+    position: absolute;
+    top: 280px;
+    right: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    z-index: 100; 
+}
+
+/* تنسيق أيقونة الموقع */
+.map-btn i {
+    font-size: 45px;
+    color: #4CAF50;
+}
+
+.map-btn:hover i {
+    color: #388E3C;
+}
+
+/* حاوية أيقونة البحث المنبثقة */
+.search-launcher {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* تنسيق زر أيقونة البحث */
+.search-btn {
+    background-color: #1e88e5;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    padding: 0;
+}
+
+.search-btn:hover {
+    background-color: #1565c0;
+    transform: none;
+}
+
+/* شريط البحث المنبثق */
+.search-bar {
+    display: none;
+    position: absolute;
+    right: 100%;
+    margin-right: 10px;
+    height: 50px;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.search-bar.active {
+    display: flex;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    padding: 0 15px;
+    height: 100%;
+    width: 200px;
+    font-family: "Amiri", serif;
+    font-size: 16px;
+    direction: rtl;
+    text-align: right;
+}
+
+.search-submit {
+    background-color: #1e88e5;
+    color: white;
+    border: none;
+    height: 100%;
+    width: 50px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.search-submit:hover {
+    background-color: #1565c0;
+}
+
+/* تنسيق الفقاعة (Tooltip) - لكلمة الرئيس */
+.icon-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: right;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 30;
+    right: auto;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: normal;
+    line-height: 1.5;
+}
+
+.icon-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    left: auto;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #333;
+}
+
+.president-talk-btn:hover .icon-tooltip {
+    visibility: visible;
+    opacity: 1;
+    left: 70px;
+}
+
+/* ========================================= */
+/* === تنسيق الشعار === */
+/* ========================================= */
+.logo-container {
+    position: absolute;
+    top: 20px; 
+    z-index: 90; 
+}
+
+#councilLogo, #presidentLogo {
+    width: 150px; 
+    height: auto;
+    display: block;
+}
+
+.logo-council {
+    left: 30px;
+    right: auto;
+}
+
+.logo-president {
+    right: 30px; 
+    left: auto;
+}
+
+/* ========================================= */
+/* === تنسيق النافذة المنبثقة === */
+/* ========================================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 50px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    text-align: right;
+}
+
+.close-btn {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover, .close-btn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    text-align: center;
+    color: #3f005c;
+    margin-top: 0;
+    border-bottom: 2px solid #3f005c;
+    padding-bottom: 10px;
+}
+
+/* تنسيق حقول الإدخال في نموذج البريد */
+.modal-content form input, .modal-content form textarea, .modal-content form button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: "Amiri", serif;
+    font-size: 16px;
+    text-align: right;
+}
+
+.modal-content form button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.modal-content form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* تنسيق أزرار الروابط داخل المودال */
+.facebook-link-btn, .phone-call-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    gap: 8px;
+    transition: background-color 0.3s;
+    max-width: 250px;
+}
+
+.facebook-link-btn:hover, .phone-call-btn:hover {
+    background-color: #0056b3;
+}
+
+/* ========================================= */
+/* === تنسيق المحتوى الرئيسي === */
+/* ========================================= */
+main {
+    padding-top: 300px;
+    width: 100%; 
+    margin: 0 auto;
+    z-index: 10; 
+    position: relative; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: right;
+    min-height: calc(100vh - 300px); 
+}
+
+/* ========================================= */
+/* === الأيقونات العمودية === */
+/* ========================================= */
+.vertical-icons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0; 
+    width: 90%; 
+    max-width: 600px; 
+    background-color: transparent; 
+    box-shadow: none; 
+    align-items: center; 
+}
+
+.main-icon-link {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #3f005c; 
+    width: 95%; 
+    height: 110px;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s, color 0.3s;
+    font-size: 22px;
+    font-weight: 700;
+    border: 2px solid #3f005c; 
+    background-color: #ffffff; 
+    padding: 0 30px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+}
+
+.main-icon-link span {
+    text-align: center; 
+    line-height: 1.5; 
+}
+
+/* ألوان الأشرطة الخمسة */
+.main-icon-link:nth-child(1) {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #388E3C; 
+    margin-bottom: 25px; 
+}
+
+.main-icon-link:nth-child(2) {
+    background-color: #2196F3;
+    color: white;
+    border-color: #1976D2; 
+}
+
+.main-icon-link:nth-child(3) {
+    background-color: #9C27B0;
+    color: white;
+    border-color: #7B1FA2; 
+}
+
+.main-icon-link:nth-child(4) {
+    background-color: #FF9800;
+    color: #3f005c; 
+    border-color: #FB8C00; 
+}
+
+.main-icon-link:nth-child(5) {
+    background-color: #800000;
+    color: white;
+    border-color: #5D0000; 
+}
+
+.main-icon-link:hover {
+    background-color: #3f005c;
+    color: white;
+    transform: translateY(-5px); 
+    border-color: #5c008c; 
+}
+
+/* ========================================= */
+/* === لاصقة أسفل الصفحة === */
+/* ========================================= */
+.footer-sticker {
+    position: fixed;
+    bottom: 10px;        
+    left: 10px;          
+    z-index: 50;         
+    opacity: 0.4;
+    visibility: visible;
+    pointer-events: none; 
+    padding: 5px 10px;
+    font-family: "Amiri", serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #3f005c;      
+    background-color: rgba(255, 255, 255, 0.6); 
+    border: 1px solid rgba(63, 0, 92, 0.2);     
+    border-radius: 5px;
+    transition: opacity 0.5s ease-in-out, background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+    animation: swing 3s ease-in-out infinite;
+}
+
+.footer-sticker:hover {
+    opacity: 1;
+    pointer-events: auto; 
+    color: #ff0000; 
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 5px rgba(255, 255, 255, 1);
+    animation: none; 
+    transform: translateX(0px) scale(1.05);
+    z-index: 60;
+}
+/* === إصلاح العناوين العليا === */
+.main-title h1, .main-title h2, .main-title h3 {
+    font-size: 32px;
+    margin: 3px 0;
+}
+
+/* === إصلاح الشعارين يمين ويسار === */
+.logo-container {
+    top: 10px !important;
+}
+
+#councilLogo, #presidentLogo {
+    width: 110px !important;
+}
+
+/* === إصلاح مكان أيقونات اليمين واليسار === */
+.top-icons-left,
+.top-icons-right {
+    top: 160px !important;
+}
+
+/* === إصلاح الخلفية الكبيرة === */
+body::before {
+    background-size: 400% 400%, 55% auto !important;
+    opacity: 0.35;
+}
+
+/* === إصلاح الهيدر (الجزء العلوي) === */
+header {
+    padding-top: 140px !important;
+}
+/* تعديل ارتفاع الهيدر لرفع العناوين للأعلى */
+header {
+    padding-top: 40px !important;
+}
+
+/* تصغير الشعار الخلفي */
+body::before {
+    background-size: 400% 400%, 40% auto !important;
+    opacity: 0.30 !important;
+}

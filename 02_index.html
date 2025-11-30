@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الصفحة الرئيسية</title>
+
+    <!-- ملف التنسيق الرئيسي -->
+    <link rel="stylesheet" href="main.css">
+
+    <!-- أيقونات Font Awesome -->
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    
+    <header>
+        <div class="main-title">
+            <h1>الجمهوريّة الجزائريّة الديمقراطيّة الشعبيّة</h1>
+            <h2>رئاسة الجمهوريّة</h2>
+            <h3>المجلس الأعلى للّغة العربيّة</h3>
+        </div>
+    </header>
+
+    <!-- شعار المجلس -->
+    <div class="logo-container logo-council">
+        <img src="icons/council_logo.png" alt="شعار المجلس الأعلى للّغة العربيّة" id="councilLogo">
+    </div>
+    
+    <!-- شعار الرئاسة -->
+    <div class="logo-container logo-president">
+        <img src="icons/1.webp" alt="شعار رئاسة الجمهوريّة" id="presidentLogo">
+    </div>
+    
+    <!-- الأيقونات العليا على اليسار -->
+    <div class="top-icons-left">
+        
+        <a href="president_section/speech.html" class="icon-btn president-talk-btn" title="كلمة الرئيس">
+            <i class="fas fa-microphone"></i>
+            <div class="icon-tooltip">
+                <p>كلمة الرئيس</p> 
+                <strong>الأستاذ جبري شعبان</strong>
+            </div>
+        </a>
+
+        <button class="icon-btn about-app-btn" id="openAboutModal" title="حول التطبيق">
+            حول التطبيق
+            <i class="fas fa-info-circle"></i>
+        </button>
+        
+        <div class="contact-menu-launcher">
+            <button class="icon-btn contact-btn" id="contactLauncher">
+                للتواصل
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            
+            <div class="floating-actions" id="contactActions">
+                <button class="action-btn email-btn" id="openEmailModal">
+                    <i class="fas fa-envelope"></i>
+                </button>
+                
+                <button class="action-btn facebook-btn" id="openFacebookModal">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                
+                <button class="action-btn phone-btn" id="openPhoneModal">
+                    <i class="fas fa-phone"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- الأيقونات العليا على اليمين -->
+    <div class="top-icons-right">
+        
+        <a href="https://maps.google.com/?cid=16718337413198075065&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" 
+           target="_blank" class="icon-btn map-btn" title="موقع المجلس الأعلى للّغة العربيّة">
+            <i class="fas fa-map-marker-alt"></i>
+        </a>
+        
+        <div class="search-launcher">
+            <button class="icon-btn search-btn" id="searchLauncher" title="بحث">
+                <i class="fas fa-search"></i>
+            </button>
+            
+            <div class="search-bar" id="searchBar">
+                <input type="text" placeholder="اكتب كلمة البحث هنا..." class="search-input">
+                <button class="search-submit"><i class="fas fa-arrow-left"></i></button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main>
+        <div class="vertical-icons-container">
+            
+            <a href="#" class="main-icon-link" title="خطوات التّوظيف الإلكتروني -أنموذجا-" 
+                 onclick="event.preventDefault(); alert('📌 منصة التوظيف الالكتروني  غير جاهزة بعد');">
+                <span>خُطُوَاتُ التَّوْظِيفِ الإلِكْتُرُونِيِّ - أُنْمُوذَجًا -</span>
+            </a>
+            
+            <a href="ruban2/index.html" class="main-icon-link" title="فتح التّوظيف و المسابقات و التّرقية لرتب الموظّفين">
+                <span>فَتْحُ التَّوْظِيفِ والمُسَابَقَاتِ والتَّرْقِيَةِ لِرُتَبِ المُوَظَّفِينَ</span>
+            </a>
+            
+            <a href="ruban3/index.html" class="main-icon-link" title="خطوات العمليّة الإلكترونيّة في التّوظيف و التّرقيه">
+                <span>خُطُوَاتُ العَمَلِيَّةِ الإلِكْتُرُونِيَّةِ فِي التَّوْظِيفِ والتَّرْفِيهِ</span>
+            </a>
+            
+            <a href="ruban4/index.html" class="main-icon-link" title="المخطط الاساسي في تقنيات التحول الإلكتروني">
+                <span>المُخَطَّطُ الأسَاسِيُّ فِي تِقْنِيَّاتِ التَّحَوُّلِ الإلِكْتُرُونِيِّ</span>
+            </a>
+            
+            <a href="ruban5/index.html" class="main-icon-link" title="المراحل الأساسية للتّحول الى إدارة إلكترونية">
+                <span>المَرَاحِلُ الأسَاسِيَّةُ لِلتَّحَوُّلِ إلى إِدَارَةٍ إلِكْتُرُونِيَّةٍ</span>
+            </a>
+        </div>
+    </main>
+
+
+    <!-- النوافذ المنبثقة -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn about-close-btn">×</span>
+            <h2>معلومات حول التّطبيق (الجنريك)</h2>
+            
+            <div class="audio-container">
+                <audio controls id="infoAudio"> 
+                    <source src="about_app/info_audio.mp3" type="audio/mpeg">
+                    متصفحك لا يدعم تشغيل ملفات الصوت.
+                </audio>
+            </div>
+            
+            <p>هنا ستظهر التفاصيل والمعلومات الخاصة بالمجلس الأعلى للغة العربية.</p>
+            <p>هذا هو المحتوى العام لصفحة التعريف/الجنريك.</p>
+        </div>
+    </div>
+    
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn email-close-btn">×</span>
+            <h2>نموذج التواصل عبر البريد الإلكتروني</h2>
+            <form>
+                <input type="text" placeholder="اسمك الكامل" required>
+                <input type="email" placeholder="بريدك الإلكتروني" required>
+                <textarea placeholder="رسالتك" required></textarea>
+                <button type="submit">إرسال الرسالة</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="facebookModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn facebook-close-btn">×</span>
+            <h2>صفحة التواصل الاجتماعي (فيسبوك)</h2>
+            <p>يمكنك الضغط على الزر أدناه للانتقال لصفحتنا على فيسبوك.</p>
+            <a href="https://www.facebook.com" target="_blank" class="facebook-link-btn">
+                <i class="fab fa-facebook-f"></i>
+                الانتقال إلى فيسبوك
+            </a>
+        </div>
+    </div>
+
+    <div id="phoneModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn phone-close-btn">×</span>
+            <h2>التواصل عبر الهاتف</h2>
+            <p>يرجى الاتصال بنا خلال ساعات العمل الرسمية:</p>
+            <p style="font-size: 24px; font-weight: bold; color: #cc0000;">+213 (0) 21 XXX XXXX</p>
+            <p style="color: #666; font-size: 14px;">(اضغط على الرقم أعلاه للاتصال إذا كنت تستخدم هاتفًا ذكيًا)</p>
+            <a href="tel:+21321XXXXXXX" class="phone-call-btn">
+                    <i class="fas fa-phone"></i>
+                    اتصال الآن
+            </a>
+        </div>
+    </div>
+
+    <!-- نافذة نتائج البحث -->
+    <div id="searchResultsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeResultsModal">×</span>
+            <h2>نتائج البحث</h2>
+            <div id="searchResultsContent">
+                <!-- هنا ستظهر النتائج -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-sticker">
+        هندسةوبرمجة  علاوة زينة
+    </div>
+
+    <script src="search-db.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
