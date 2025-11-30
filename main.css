@@ -756,11 +756,11 @@ body::before {
 
     /* الشعار اليساري */
     .logo-council {
-        left: 15px !important;   /* كان 30px، خفضناه قليلاً */
+        left: 10px !important;   /* كان 30px، خفضناه قليلاً */
     }
 
     /* الشعار اليميني */
     .logo-president {
-        right: 15px !important;  /* كان 30px، خفضناه قليلاً */
+        right: 10px !important;  /* كان 30px، خفضناه قليلاً */
     }
 }
