@@ -1,282 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="utf-8"> 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>قرار/مقرر استبدال مترشح ناجح</title>
-    <!-- تحميل مكتبة PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;900&display=swap');
-        
-        body {
-            font-family: "Amiri", "Cairo", serif;
-            color: #333;
-            direction: rtl;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .document-container {
-            width: 95%;
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 40px; 
-            border: 5px solid #0d47a1; 
-            background-color: #ffffff; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            line-height: 1.8;
-            text-align: right;
-        }
-        
-        .header-info { 
-            text-align: right; 
-            margin-bottom: 30px; 
-            font-size: 1.1em; 
-            font-weight: 700; 
-            line-height: 1.8;
-            color: #1976d2; 
-        }
-
-        .authority-statement {
-            font-size: 1.1em;
-            font-weight: 900;
-            color: #d32f2f;
-            margin-bottom: 20px;
-        }
-        
-        .legal-preamble {
-            margin-bottom: 30px;
-            padding: 15px;
-            border-right: 4px solid #1565c0;
-            background-color: #f7fbfe;
-        }
-        .legal-preamble ul {
-            list-style: none;
-            padding-right: 0;
-        }
-        .legal-preamble li {
-            margin-bottom: 10px;
-            font-size: 0.95em;
-        }
-        .legal-preamble li strong {
-            color: #0d47a1;
-        }
-
-        /* نص القرار */
-        .decision-title {
-            text-align: center;
-            font-size: 1.5em;
-            font-weight: 900;
-            color: #d32f2f;
-            margin: 30px 0 20px;
-        }
-        .article {
-            margin-bottom: 20px;
-            padding: 10px 0;
-            border-bottom: 1px dashed #ccc;
-            font-size: 1.1em;
-            text-align: justify;
-        }
-        .article strong {
-            color: #0d47a1;
-        }
-        .article span {
-            font-weight: 900;
-            color: #d32f2f;
-        }
-
-        /* التذييل والتوقيع */
-        .signature-block {
-            margin-top: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .signature-block .date-place {
-            font-weight: 700;
-            color: #1565c0;
-        }
-        .signature-block .authority-signature {
-            text-align: center;
-            font-weight: 900;
-            color: #0d47a1;
-        }
-        .signature-block .authority-signature span {
-            display: block;
-            margin-top: 40px;
-            border-top: 1px solid #333;
-            padding-top: 5px;
-            font-weight: 500;
-            font-size: 0.9em;
-        }
-
-        /* تنسيق الطباعة (مهم) */
-        @media print {
-            body { background: none; }
-            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 20px; max-width: none; }
-            .legal-preamble { background-color: #f0f0f0 !important; border-right-color: #333 !important; -webkit-print-color-adjust: exact; }
-            .decision-title { color: #000 !important; border-color: #000 !important; -webkit-print-color-adjust: exact; }
-        }
-    </style>
-</head>
-<body>
-    <div class="document-container">
-        
-        <div class="header-info">
-            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
-            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنية</p>
-        </div>
-        
-        <h3 class="document-title">
-            قرار/ مقرّر استبدال مترشّح ناجح
-        </h3>
-
-        <p class="authority-statement">
-            إنّ **..........................................** (ذكر السّلطة التي لها صلاحية التّعيين)؛
-        </p>
-
-        <div class="legal-preamble">
-            <ul>
-                <li>- بمقتضى الأمــــــر رقم: **06 – 03** المؤرّخ في 19 جمادى الثاّنية عام 1427ه الموافق 15 جويلية سنة 2006م المتضمّن القانون الأساسي العامّ للوظيفة العموميّة، المعدّل والمتمّم؛</li>
-                <li>- وبمقتضى المرسوم التّنفيذي رقم: **90-99** المؤرّخ في 27 مارس سنة 1990م المتعلّق بسلطة التّعيين، والتّسيير الإداريّ، بالنسبة للموظّفين وأعوان الإدارة المركزية والولايات والبلديات والمؤسّسات العموميّة ذات الطّابع الإداريّ؛</li>
-                <li>- وبمقتضى المرسوم التّنفيذي رقم **...-.....** المؤرّخ في **.... ...........** المتضمّن القانون الأساسي الخاصّ بـ **......... (سلك الانتماء)**؛</li>
-                <li>- وبmقتضى المرسوم التّنفيذي رقم: **12-194** المؤرّخ في 25 أبريل سنة 2012م، المحدّد لكيفيّات تنظيم المسابقات والامتحانات والفحوص المهنيّة في المؤسّسات والإدارات العموميّة وإجرائها؛</li>
-                <li>- وبمقتضى التّعليمة رقم: **01** المؤرّخة في **20 فيفري 2013م** المتعلّقة بتطبيق أحكام المرسوم التّنفيذي رقم: **12-194** المذكور أعلاه؛</li>
-                <li>- وبناء على القرار أو المقرّر رقم **.......** المؤرّخ في **.... ........... ......** المتضمّن فتح مسابقة على أساس الاختبارات أو الامتحان والفحص المهنيّ للالتحاق **.............................**؛</li>
-                <li>- وبناء على المحضر رقم **.......** المؤرّخ في **.... ........... ......** المتضمّن اجتماع اللجنة المكلّفة بإعداد قائمة النّاجحين نهائيا في المسابقة للالتحاق بسلك **...............** رتبة **...................**؛</li>
-                <li>- وبناء على الاستدعاء رقم **.........** المؤرّخ في **.... ..** الموجّه للسّيد (**ة**): **.......................**؛</li>
-                <li>- وبناء على وصل استلام الاستدعاء رقم **........** المؤرّخ في **.... ……........... .............**؛</li>
-                <li>- ونظرا لانتهاء الآجال القانونيّة للالتحاق بالمنصب ابتداء من تاريخ تبليغ المعني(**ة**)؛</li>
-                <li>- وبناء على التّنازل عن المنصب المقدّم من طرف السّيد(**ة**): **........** بتاريخ **.... .. .............**؛</li>
-                <li>- وباقتراح من **.....................................**</li>
-            </ul>
-        </div>
-        
-        <p class="decision-title">
-            يُقَـــــــــــرّر
-        </p>
-        
-        <div class="article">
-            <p>
-                **المادّة الأولى:** يُستبدل **<span>................. (بيان الاسم واللقب)</span>** المترشّح النّاجح في المسابقة على أساس الاختبارات أو الامتحان والفحص المهنيّ للالتحاق بسلك **................** رتبة **..................** المنظّمة بعنوان سنة **...** بالسّيد(**ة**): **<span>............ (بيان الاسم واللقب)</span>** المترشّح الذي يليه في التّرتيب حسب درجة الاستحقاق؛ وذلك بسبب **<span>.............. (بيان السّبب تخلّف/ تنازل)</span>**.
-            </p>
-        </div>
-        <div class="article">
-            <p>
-                **المادّة 02:** تُبلّغ نسخة من هذا القرار/ المقرّر إلى مصالح السّلطة المكلّفة بالوظيفة العموميّة في أجل **عشرة (10) أيام عمل**، ابتداء من تاريخ توقيعه.
-            </p>
-        </div>
-        <div class="article">
-            <p>
-                **المادّة 03:** يُكلّف **................ (ذِكر السّلطة الإداريّة المعنية)** بتنفيذ هذا القرار/ المقرّر.
-            </p>
-        </div>
-
-        <div class="signature-block">
-            <div class="authority-signature">
-                الإمضاء (من طرف السّلطة الإداريّة المؤهّلة)
-                <span>(مكان للإمضاء)</span>
-            </div>
-            <p class="date-place">
-                حرّر بـ **...................** في **............**
-            </p>
-        </div>
-
-    </div>
-
-    <!-- شريط الأزرار الموحد -->
-    <script>
-        // إنشاء شريط التنقل الجديد
-        const navigationBar = document.createElement('div');
-        navigationBar.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            gap: 12px;
-            background: rgba(63, 0, 92, 0.95);
-            padding: 15px;
-            border-radius: 50px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-        `;
-
-        navigationBar.innerHTML = `
-            <!-- زر الرجوع -->
-            <button onclick="window.location.href='../index.html'" style="
-                background: linear-gradient(135deg, #ff0000, #cc0000);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 22px;
-                font-weight: bold;
-            " title="العودة إلى ruban3/index.html">←</button>
-
-            <!-- زر الرئيسية -->
-            <button onclick="window.location.href='../../02_index.html'" style="
-                background: linear-gradient(135deg, #007bff, #0056b3);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="الذهاب إلى 02_index.html الرئيسي">🏠</button>
-
-            <!-- زر الطباعة -->
-            <button onclick="window.print()" style="
-                background: linear-gradient(135deg, #28a745, #1e7e34);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="طباعة الصفحة">🖨️</button>
-
-            <!-- زر تحميل PDF -->
-            <button onclick="downloadAsPDF()" style="
-                background: linear-gradient(135deg, #ffc107, #e0a800);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="تحميل كـ PDF">📄</button>
-        `;
-
-        document.body.appendChild(navigationBar);
-
-        // دالة تحميل PDF
-        function downloadAsPDF() {
-            const element = document.querySelector('.document-container');
-            const opt = {
-                margin: [10, 10, 10, 10],
-                filename: 'قرار_استبدال_مترشح_ناجح.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            
-            html2pdf().set(opt).from(element).save();
-        }
-    </script>
-</body>
-</html>
