@@ -368,13 +368,14 @@
         overflow: visible !important;
     }
 }
-    /* 📌 تصغير شعار الخلفية على الهاتف */
-    .page-background {
-        background-size: 80% !important;
-        opacity: 0.10 !important;
-        filter: grayscale(100%) blur(1px);
-        background-position: center bottom !important;
-    }
+  /* ⚡ إصلاح شعار الخلفية على شاشة الهاتف – النسخة الجديدة */
+.page-background {
+    background-size: 45% !important;           /* تصغير الشعار */
+    background-position: center 70% !important; /* وضعه أسفل قليلاً */
+    opacity: 0.08 !important;                  /* خفة الشعار */
+    background-repeat: no-repeat !important;   /* منع التكرار */
+    filter: grayscale(100%) blur(1px);         /* نفس تأثير الكمبيوتر */
+}
 
 </style>
 
@@ -524,6 +525,7 @@
     </script>
 </body>
 </html>
+
 
 
 
