@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>تبليغ قرار اللجنة التّقنيّة لدراسة الملفّات</title>
+    
+    <!-- تحميل مكتبة PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        
+        /* ⚠️ تعديل أساسي لـ body لإفساح المجال لشريط الإجراءات ⚠️ */
+        body {
+            font-family: "Amiri", "Cairo", serif;
+            color: #333;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            /* إضافة هامش علوي للسماح بظهور شريط الإجراءات */
+            padding-top: 70px; 
+        }
+
+        .document-container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 40px;
+            border: 4px solid #1e88e5; 
+            background-color: #ffffff; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            line-height: 1.9;
+            text-align: right;
+            position: relative;
+        }
+        
+        .header-info { 
+            text-align: center; 
+            margin-bottom: 50px; 
+            font-size: 1.2em; 
+            font-weight: 700; 
+            line-height: 1.8;
+            color: #0d47a1; 
+        }
+
+        .recipient-details {
+            margin-bottom: 40px;
+            padding: 15px;
+            border: 2px dashed #ffb300;
+            background-color: #fffde7;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        .recipient-details p {
+            margin: 10px 0;
+            color: #0d47a1;
+        }
+        .recipient-details span {
+            font-weight: 700;
+            border-bottom: 1px dotted #ffb300;
+            display: inline-block;
+            width: 70%;
+            margin-right: 10px;
+        }
+        
+        .subject-line {
+            font-weight: 800;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            border-right: 5px solid #d32f2f;
+            padding-right: 10px;
+            color: #d32f2f;
+        }
+
+        .body-text {
+            font-size: 1.1em;
+            text-align: justify;
+            margin-bottom: 40px;
+        }
+        
+        .rejection-reason {
+            font-weight: bold;
+            color: #d32f2f;
+            text-decoration: underline;
+            display: inline-block;
+        }
+
+        .appeal-note {
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #66bb6a;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #388e3c;
+        }
+
+        .regards-line {
+            text-align: center;
+            font-style: italic;
+            margin-top: 50px;
+            font-weight: 700;
+            color: #1e88e5;
+        }
+        
+        /* التذييل والتوقيع */
+        .footer-signature {
+            margin-top: 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-end;
+            font-size: 1.1em;
+            color: #0d47a1;
+        }
+        .footer-signature .date-place {
+            text-align: right;
+            font-weight: 500;
+            flex-basis: 50%;
+        }
+        .footer-signature .signature-block {
+            text-align: center;
+            flex-basis: 45%;
+        }
+        .footer-signature .signature-block p {
+            margin: 5px 0;
+        }
+        .footer-signature .signature-block .authority {
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        /* 🛑 إخفاء الأزرار الأصلية والجديدة عند الطباعة 🛑 */
+        @media print {
+            body { background: none; padding-top: 0 !important; }
+            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 20px; max-width: none; }
+            .recipient-details, .appeal-note { border: 1px solid #ccc; background-color: #f0f0f0 !important; -webkit-print-color-adjust: exact; }
+            .subject-line { border-right: 3px solid #333; color: #000; }
+        }
+
+        /* رسالة التحميل */
+        #loadingMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10000;
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
+    
+    <div class="document-container">
+        
+        <div class="header-info">
+            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
+            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنيّة</p>
+        </div>
+        
+        <div class="recipient-details">
+            <p>السّيد(ة): <span>...................................................................................</span></p>
+            <p>العنوان: <span>.......................................................................................</span></p>
+        </div>
+
+        <p class="subject-line">الموضوع: تبليغ قرار اللجنة التّقنيّة لدراسة الملفّات.</p>
+        
+        <div class="body-text">
+            <p>
+                أنهي إلى علمكم بأنّه قد تمّ رفض ملف ترشّحكم المودع على مستوى مصالحي قصد المشاركة في المسابقة على أساس الشّهادة للالتحاق برتبة ....................، من طرف اللجنة الخاصّة بدراسة الملفّات وذلك بسبب: <span class="rejection-reason">............ (بيان سبب الرّفض بدقّة).</span>
+            </p>
+            
+            <div class="appeal-note">
+                في هذا الإطار، أذكّركم بأنّه طبقا لأحكام 16 المرسوم التّنفيذي رقم :12-194 المــؤرّخ في 25 أبريل 2012م المحدّد لكيفيّات تنظيم المسابقات والامتحانات والفحوص المهنيّة في المؤسّسات والإدارات العموميّة وإجرائها فيمكنكم تقديم طعن لدى السّلطة التي لها صلاحية التّعيين قبل خمسة (**05**) أيام عمل على الأقل من تاريخ (**تحديد التّاريخ بدقّة**).
+            </div>
+            
+            <p class="regards-line">
+                وتقبّلوا سيّدتي / سيّدي، فائق التّقدير والاحترام.
+            </p>
+        </div>
+        
+        <div class="footer-signature">
+            <div class="date-place">
+                حرّر بـ ................ في ..... ..........
+            </div>
+            <div class="signature-block">
+                <p>الإمضاء</p>
+                <p class="authority">(من طرف السّلطة الإداريّة المؤهّلة)</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- إضافة شريط الأزرار الجديد مع تحميل PDF حقيقي -->
+    <script>
+        // إنشاء شريط التنقل الجديد
+        const navigationBar = document.createElement('div');
+        navigationBar.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 12px;
+            background: rgba(63, 0, 92, 0.95);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+
+        navigationBar.innerHTML = `
+            <!-- زر الرجوع -->
+            <button onclick="window.location.href='../index.html'" style="
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 22px;
+                font-weight: bold;
+            " title="العودة إلى index.html">←</button>
+
+            <!-- زر الرئيسية -->
+            <button onclick="window.location.href='../../02_index.html'" style="
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="الذهاب إلى 02_index.html">🏠</button>
+
+            <!-- زر الطباعة -->
+            <button onclick="window.print()" style="
+                background: linear-gradient(135deg, #28a745, #1e7e34);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="طباعة الصفحة">🖨️</button>
+
+            <!-- زر التحميل الحقيقي -->
+            <button onclick="downloadAsPDF()" style="
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="تحميل كـ PDF">📄</button>
+        `;
+
+        document.body.appendChild(navigationBar);
+
+        // دالة تحميل PDF حقيقية
+        function downloadAsPDF() {
+            // عرض رسالة التحميل
+            document.getElementById('loadingMessage').style.display = 'block';
+            
+            // إخفاء شريط الأزرار مؤقتاً
+            navigationBar.style.display = 'none';
+            
+            // خيارات PDF
+            const element = document.querySelector('.document-container');
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'تبليغ_قرار_اللجنة_التقنية.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // إنشاء وتحميل PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // إعادة إظهار شريط الأزرار
+                navigationBar.style.display = 'flex';
+                document.getElementById('loadingMessage').style.display = 'none';
+            });
+        }
+
+        // إزالة شريط الإجراءات القديم
+        const oldActionsBar = document.querySelector('.actions-bar');
+        if (oldActionsBar) {
+            oldActionsBar.remove();
+        }
+
+        // إزالة المكتبات القديمة
+        const oldJSPDF = document.querySelector('script[src*="jspdf"]');
+        const oldHtml2Canvas = document.querySelector('script[src*="html2canvas"]');
+        if (oldJSPDF) oldJSPDF.remove();
+        if (oldHtml2Canvas) oldHtml2Canvas.remove();
+    </script>
+</body>
+</html>

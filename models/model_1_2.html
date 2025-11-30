@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>وصل إيداع ملف مسابقة التّوظيف على أساس الشّهادة</title>
+    
+    <!-- تحميل مكتبة PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+        
+        /* 🟢 تنسيقات شريط الإجراءات (الموجودة) 🟢 */
+        .actions-bar {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .action-button {
+            padding: 10px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: opacity 0.3s;
+            font-weight: bold;
+        }
+
+        .back-to-list-button {
+            background-color: #0d47a1;
+        }
+        
+        .print-button {
+            background-color: #28a745;
+        }
+
+        .download-button {
+            /* تعديل اللون لتمييز عملية التحميل الحقيقية */
+            background-color: #dc3545; 
+            color: #ffffff;
+        }
+
+        .action-button:hover {
+            opacity: 0.8;
+        }
+        
+        /* 🛑 إخفاء الأزرار عند الطباعة 🛑 */
+        @media print {
+            body { background: none; }
+            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 20px; }
+            /* إخفاء شريط الإجراءات بالكامل عند الطباعة */
+            .actions-bar { display: none !important; } 
+            .candidate-info { border: 1px solid #ccc; background-color: transparent; }
+            .documents-table th { background-color: #f0f0f0 !important; color: #000 !important; }
+        }
+        
+        /* ------------------------------------------- */
+        /* ⚠️ بداية التنسيقات الأصلية للصفحة ⚠️ */
+        
+        body {
+            font-family: "Amiri", "Cairo", serif;
+            color: #333;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 70px;
+        }
+
+        .document-container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 40px;
+            border: 4px solid #1e88e5; 
+            background-color: #ffffff; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            line-height: 1.8;
+            text-align: right;
+        }
+        
+        .header-info { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 1.2em; 
+            font-weight: 700; 
+            line-height: 1.8;
+            color: #0d47a1; 
+        }
+
+        .document-title { 
+            text-align: center; 
+            margin: 25px 0 40px; 
+            font-size: 2em; 
+            font-weight: 900; 
+            color: #1e88e5; 
+            border-bottom: 5px solid #1e88e5;
+            padding-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .document-title .arabic-title {
+            font-family: 'Amiri', 'Traditional Arabic', serif; 
+            font-weight: 700;
+            line-height: 1.2;
+            display: block; 
+        }
+        
+        .candidate-info {
+            margin-bottom: 35px; 
+            border: 2px dashed #90caf9; 
+            padding: 20px; 
+            border-radius: 10px;
+            background-color: #e3f2fd; 
+        }
+        .candidate-info p {
+            margin: 10px 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            color: #0d47a1;
+        }
+        .candidate-info span {
+            font-weight: 700;
+            display: inline-block;
+            flex-grow: 1;
+            border-bottom: 1px dotted #1e88e5;
+            margin-right: 15px;
+        }
+
+        .documents-table { 
+            width:100%; 
+            border-collapse: collapse; 
+            margin: 30px 0;
+            font-size: 0.95em;
+        }
+        .documents-table th, 
+        .documents-table td { 
+            border: 1px solid #90caf9; 
+            padding: 12px 10px;
+            text-align: right;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+        .documents-table th { 
+            background-color: #42a5f5; 
+            color: white; 
+            font-weight: 800; 
+            text-align: center;
+        }
+        .documents-table td:nth-child(1) { 
+            width: 8%; 
+            text-align: center; 
+            background-color: #e3f2fd; 
+            font-weight: bold;
+        }
+        .documents-table td:nth-child(3) { 
+            width: 10%; 
+            text-align: center; 
+        } 
+        tfoot td {
+            background-color: #bbdefb; 
+            font-weight: 700;
+        }
+        tfoot td:first-child {
+            text-align: right;
+        }
+
+        .footer-info {
+            margin-top: 30px; 
+            font-size: 1.05em;
+            font-weight: bold;
+        }
+        .footer-signature {
+            margin-top: 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 1.1em;
+            color: #0d47a1;
+        }
+
+        /* رسالة التحميل */
+        #loadingMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10000;
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
+    
+    <div class="document-container" id="contentToPrint"> 
+        
+        <div class="header-info">
+            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
+            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنيّة</p>
+        </div>
+        
+        <h3 class="document-title">
+            <span class="arabic-title">وَصْلُ إِيدَاعِ مِلَفِّ مُسَابَقَةِ التَّوْظِيفِ عَلَى أَسَاسِ الشَّهَادَةِ</span>
+        </h3>
+        
+        <p style="text-align: center; font-size: 1.15em; font-weight: bold; margin-bottom: 25px; color: #0d47a1;">
+            للالتحاق برتبة .............................
+        </p>
+
+        <div class="candidate-info">
+            <p>اسم ولقب المترشّح: <span>...................................................</span></p>
+            <p>تاريخ الازدياد: <span>...........................................................</span></p>
+            <p>رقم الهاتف (النّقال أو الثّابت): <span>......................................</span></p>
+            <p>البريد الالكتروني (إن وجد): <span>...........................................</span></p>
+        </div>
+
+        <h4 style="font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #1e88e5; padding-bottom: 5px; color: #0d47a1;">قائمة الوثائق المودعة:</h4>
+        
+        <table class="documents-table">
+            <thead>
+                <tr>
+                    <th>الرقم</th>
+                    <th>طبيعة الوثيقة</th>
+                    <th>العدد</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>01</td><td>طلب خطي للمشّاركة في المسابقة</td><td>&nbsp;</td></tr>
+                <tr><td>02</td><td>نسخة من الشّهادة أو المؤهّل المطلوب</td><td>&nbsp;</td></tr>
+                <tr><td>03</td><td>نسخة من الوثيقة التي تثبت وضعية المترشّح اتجاه الخدمة الوطنيّة</td><td>&nbsp;</td></tr>
+                <tr><td>04</td><td>نسخة من وثيقة التّعريف الوطنيّة</td><td>&nbsp;</td></tr>
+                <tr><td>05</td><td>شهادة السّوابق العدلية رقم 03 سارية المفعول</td><td>&nbsp;</td></tr>
+                <tr><td>06</td><td>شهادة الإقامة - عند الاقتضاء</td><td>&nbsp;</td></tr>
+                <tr><td>07</td><td>شهادات العمل التي تثبت الخبرة المهنيّة للمترشّح، مؤشّر عليها من قبل هيئة الضّمان الاجتماعي، بالنّسبة للخبرة المكتسبة في القطاع الخاصّ، عند الاقتضاء</td><td>&nbsp;</td></tr>
+                <tr><td>08</td><td>نسخة كشف النّقاط للمسار الدّراسي العامّ أو للسنة الأخيرة للمترشّح- حسب الحالة</td><td>&nbsp;</td></tr>
+                <tr><td>09</td><td>شهادة تثبت مدة العمل المؤداة فعليا من طرف المترشّح في إطار جهازي الإدماج المهني أو الاجتماعي للشباب حاملي الشّهادات، وتوضح المنصب المشغول، عند الاقتضاء</td><td>&nbsp;</td></tr>
+                <tr><td>10</td><td>كلّ وثيقة تثبت متابعة المترشّح تكوينا أعلى من الشّهادة المطلوبة في التّخصّص، عند الاقتضاء</td><td>&nbsp;</td></tr>
+                <tr><td>11</td><td>كلّ وثيقة تثبت الأشغال والدّراسات المنجزة من طرف المترشّح في التخصّص، عند الاقتضاء</td><td>&nbsp;</td></tr>
+                <tr><td>12</td><td>استمارة معلومات يتمّ ملؤها من طرف المترشّح</td><td>&nbsp;</td></tr>
+                <tr><td>13</td><td>وثيقة تثبت تفوق المترشّح في دفعته عند الاقتضاء</td><td>&nbsp;</td></tr>
+                <tr><td>14</td><td>التعهّد بالاستقالة والترخيص الكتابي ممضى من طرف السلطة صاحبة التعيين الذي يسمح بالمشاركة في مسابقات التّوظيف الخارجي بالنّسبة للموظّفين</td><td>&nbsp;</td></tr>
+                <tr><td>15</td><td>شهادة إثبات مدّة التّكوين المتّبع بالنّسبة لخريجي مؤسّسات التّكوين والتّعليم المهنيين</td><td>&nbsp;</td></tr>
+                <tr><td>16</td><td>شهادة إثبات المستوى الدّراسي للالتحاق بالتّكوين بالنّسبة لخريجي مؤسّسات التّكوين والتّعليم المهنيين</td><td>&nbsp;</td></tr>
+                <tfoot>
+                    <tr>
+                        <td colspan="2" style="text-align: right; font-weight: bold;">المجموع:</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tfoot>
+            </tbody>
+        </table>
+
+        <div class="footer-info">
+            <div style="display: flex; justify-content: space-between;">
+                <p>رقم الملف في سجلّ التّوظيف: ................................. </p>
+                <p>حرّر بـ: .............. بتاريخ: ................</p>
+            </div>
+        </div>
+        
+        <div class="footer-signature">
+            <p>اسم ولقب وإمضاء المكلّف بالتّسجيل</p>
+            <p>إمضاء المترشّح المعني</p>
+        </div>
+        
+    </div>
+
+    <!-- إضافة شريط الأزرار الجديد مع تحميل PDF حقيقي -->
+    <script>
+        // إنشاء شريط التنقل الجديد
+        const navigationBar = document.createElement('div');
+        navigationBar.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 12px;
+            background: rgba(63, 0, 92, 0.95);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+
+        navigationBar.innerHTML = `
+            <!-- زر الرجوع -->
+            <button onclick="window.location.href='../index.html'" style="
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 22px;
+                font-weight: bold;
+            " title="العودة إلى index.html">←</button>
+
+            <!-- زر الرئيسية -->
+            <button onclick="window.location.href='../../02_index.html'" style="
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="الذهاب إلى 02_index.html">🏠</button>
+
+            <!-- زر الطباعة -->
+            <button onclick="window.print()" style="
+                background: linear-gradient(135deg, #28a745, #1e7e34);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="طباعة الصفحة">🖨️</button>
+
+            <!-- زر التحميل الحقيقي -->
+            <button onclick="downloadAsPDF()" style="
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="تحميل كـ PDF">📄</button>
+        `;
+
+        document.body.appendChild(navigationBar);
+
+        // دالة تحميل PDF حقيقية
+        function downloadAsPDF() {
+            // عرض رسالة التحميل
+            document.getElementById('loadingMessage').style.display = 'block';
+            
+            // إخفاء شريط الأزرار مؤقتاً
+            navigationBar.style.display = 'none';
+            
+            // خيارات PDF
+            const element = document.querySelector('.document-container');
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'وصل_إيداع_ملف_مسابقة_التوظيف.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // إنشاء وتحميل PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // إعادة إظهار شريط الأزرار
+                navigationBar.style.display = 'flex';
+                document.getElementById('loadingMessage').style.display = 'none';
+            });
+        }
+
+        // إزالة شريط الإجراءات القديم
+        const oldActionsBar = document.querySelector('.actions-bar');
+        if (oldActionsBar) {
+            oldActionsBar.remove();
+        }
+
+        // إزالة المكتبات القديمة
+        const oldJSPDF = document.querySelector('script[src*="jspdf"]');
+        const oldHtml2Canvas = document.querySelector('script[src*="html2canvas"]');
+        if (oldJSPDF) oldJSPDF.remove();
+        if (oldHtml2Canvas) oldHtml2Canvas.remove();
+    </script>
+</body>
+</html>

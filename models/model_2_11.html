@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>محضر إعداد قائمة النّاجحين نهائيا (اختبارات)</title>
+    
+    <!-- تحميل مكتبة PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: "Amiri", "Cairo", serif;
+            color: #333;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .document-container {
+            width: 95%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 40px; 
+            border: 5px solid #4caf50; /* لون مميز لمحاضر النتائج النهائية */
+            background-color: #ffffff; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            line-height: 1.8;
+            text-align: right;
+        }
+        
+        .header-info { 
+            text-align: right; 
+            margin-bottom: 20px; 
+            font-size: 1.1em; 
+            font-weight: 700; 
+            line-height: 1.8;
+            color: #2e7d32; 
+        }
+
+        .document-title { 
+            text-align: center; 
+            margin: 20px 0 10px; 
+            font-size: 1.5em; 
+            font-weight: 900; 
+            color: #1b5e20; 
+            border-bottom: 3px solid #1b5e20;
+            padding-bottom: 10px;
+        }
+        .rank-details {
+            text-align: center; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            margin-bottom: 25px; 
+            color: #4caf50;
+        }
+        
+        .protocol-body {
+            background-color: #f1f8e9;
+            border-right: 5px solid #66bb6a;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: justify;
+            font-size: 1.05em;
+        }
+        .protocol-body strong {
+            font-weight: 700;
+            color: #388e3c;
+        }
+
+        .agenda-list {
+            list-style: decimal;
+            list-style-position: inside;
+            padding-right: 20px;
+            font-weight: 700;
+            color: #388e3c;
+            margin-bottom: 20px;
+        }
+        
+        .members-list, .deliberations-list {
+            list-style: none;
+            padding-right: 0;
+            margin: 20px 0 20px;
+        }
+        .members-list li, .deliberations-list li {
+            margin-bottom: 8px;
+            padding-right: 15px;
+            position: relative;
+            font-size: 1em;
+            text-align: justify;
+        }
+        .members-list li::before, .deliberations-list li::before {
+            content: "•";
+            color: #4caf50;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: -1em;
+            position: absolute;
+            right: 0;
+        }
+        .deliberations-list {
+            counter-reset: deliberation-counter;
+        }
+        .deliberations-list li {
+            font-weight: 500;
+        }
+        .deliberations-list li::before {
+            counter-increment: deliberation-counter;
+            content: counter(deliberation-counter) "-";
+            font-weight: 700;
+            color: #2e7d32;
+        }
+        
+        /* تنسيق الجدول */
+        .table-section-title {
+            font-size: 1.15em;
+            font-weight: 900;
+            color: #1b5e20;
+            margin: 20px 0 10px;
+            border-bottom: 2px dashed #a5d6a7;
+            padding-bottom: 5px;
+        }
+        
+        .documents-table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .documents-table { 
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse; 
+            margin: 10px 0 30px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .documents-table th, 
+        .documents-table td { 
+            border: 1px solid #c8e6c9; 
+            padding: 8px 5px;
+            vertical-align: middle;
+            line-height: 1.3;
+        }
+        .documents-table th { 
+            background-color: #388e3c; 
+            color: white; 
+            font-weight: 800; 
+        }
+        .documents-table tbody tr:nth-child(even) td {
+            background-color: #f1f8e9;
+        }
+        
+        /* التذييل والتوقيعات */
+        .closing-section {
+            margin-top: 40px;
+            font-size: 1em;
+            line-height: 1.8;
+            color: #2e7d32;
+        }
+        
+        .final-signatures {
+            margin-top: 30px; 
+        }
+        .final-signatures h4 {
+            font-size: 1.1em;
+            font-weight: 900;
+            border-bottom: 1px solid #4caf50;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .final-signatures ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .final-signatures ul li {
+            flex-basis: 45%;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .note-final {
+            margin-top: 30px;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #d32f2f;
+        }
+
+        /* رسالة التحميل */
+        #loadingMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10000;
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+        }
+
+        /* تنسيق الطباعة (مهم) */
+        @media print {
+            body { background: none; }
+            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 10px; max-width: none; }
+            .protocol-body { background-color: #f0f0f0 !important; border-right-color: #333 !important; -webkit-print-color-adjust: exact; }
+            .documents-table th { background-color: #e0e0e0 !important; color: #000 !important; -webkit-print-color-adjust: exact; }
+            .documents-table tbody tr:nth-child(even) td { background-color: #f9f9f9 !important; -webkit-print-color-adjust: exact; }
+            .table-section-title { border-bottom-color: #333 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
+
+    <div class="document-container">
+        
+        <div class="header-info">
+            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
+            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنية</p>
+        </div>
+        
+        <h3 class="document-title">
+             <span class="arabic-title">مَحْضَرُ اللَّجْنَةِ المُكَلَّفَةِ بِإِعْدَادِ قَائِمَةِ النَّاجِحِينَ نِهَائِيًّا</span>
+        </h3>
+        <p class="rank-details">
+            في المُسَابَقَةِ عَلَى أَسَاسِ الِاخْتِبَارَاتِ / الِاخْتِبَارِ وَالفَحْصِ المِهَنِيِّ لِلِالْتِحَاقِ بِرُتْبَةِ **...............**
+        </p>
+        
+        <div class="protocol-body">
+            <p>
+                في عام **...........** و **...............** وفي **..................** من شهر **.............** انعقد بمقرّ **................** ( تحديد مكان الاجتماع) اجتماع اللجنة المكلّفة بإعداد قائمة النّاجحين نهائياً في المسابقة على أساس الاختبارات / الاختبار والفحص المهني للالتحاق برتبة **..............** ؛ وذلك طبقا لأحكام القرار/ المقرّر رقم **......** المؤرّخ في **.... ............. ..........** المتضمّن فتح مسابقة على أساس الاختبارات / الاختبار والفحص المهني للالتحاق برتبة **..........................**
+            </p>
+        </div>
+
+        <p style="font-weight: 900; color: #1b5e20;">جدول الأعمال:</p>
+        <ul class="agenda-list">
+            <li>إعداد قائمة المترشّحين النّاجحين نهائياً في المسابقة على أساس الاختبارات أو الاختبار والفحص المهني للالتحاق بسلك **...................** رتبة **................** المنظمّة بعنوان سنة **.........** من طرف **..............** (بيان المؤسّسة أو الإدارة العموميّة المعنية).</li>
+        </ul>
+        
+        <p style="font-weight: 700; color: #388e3c;">حضر الأعضاء الآتية أسماؤهم:</p>
+        <ul class="members-list">
+            <li>السّيد(ة): **....** (السّلطة التي لها صلاحية التّعيين او السّلطة الوصية / ممثّل أحدهما)، **رئيساً**؛</li>
+            <li>السّيد(ة): **.....................................** مسؤول المؤسّسة، مركز الامتحان، **عضواً**؛</li>
+            <li>السّيد(ة): **.........................................** مصحّح ( 1 ) للاختبارات، **عضواً**؛</li>
+            <li>السّيد(ة): **........ ................................** مصحّح ( 1 ) للاختبارات، **عضواً**.</li>
+        </ul>
+        
+        <p style="font-weight: 900; color: #1b5e20;">المداولات:</p>
+        <p style="font-weight: 700;">إنّ اللجنة وبعد:</p>
+        <ul class="deliberations-list">
+            <li>تثبيت إشهار القرار/ المقرّر رقم **............** المؤرّخ في **.... ........ .......** المتضمّن المسابقة على أساس الاختبارات/ الاختبار والفحص المهني للالتحاق برتبة **...................**</li>
+            <li>دراسة العلامات والمعدّلات التي تحصّل عليها المترشّحون كما يشار إليها في كشف النّقاط المصادق عليه من طرف مركز الامتحان المؤهّل.</li>
+            <li>تثبيت عدد المناصب الماليّة المفتوحة بعنوان المسابقة على أساس الاختبارات/ الاختبار والفحص المهنيّ للالتحاق برتبة **..............** والمحدّدة بـ: **....** طبقا لـ: **..........................**</li>
+            <li>التاكّد من مجموع الشّروط القانونيّة الاساسيّة، ولاسيّما من حيث الشّهادات المطلوبة للمشاركة في المسابقة على أساس الاختبارات/ الاختبار والفحص المهني المذكور أعلاه.</li>
+        </ul>
+        <p style="font-weight: 700; color: #d32f2f;">
+            تصادق بإجماع أعضائها على قائمة النّاجحين النّهائية المبيّنة أدناه؛ من بين المترشّحين الذين تحصّلوا على معدّل عامّ يساوي/ يفوق 10 من 20 دون الحصول على علامة إقصائيّة، وذلك حسب درجة الاستحقاق وفي حدود المناصب الماليّة الشّاغرة.
+        </p>
+        <p style="font-weight: 700;">وتُعدّ قائمة المترشّحين النّاجحين حسب درجة الاستحقاق كالتالي:</p>
+
+        <h4 class="table-section-title">1 - قائمة النّاجحين النّهائية حسب درجة الاستحقاق:</h4>
+        <div class="documents-table-container">
+            <table class="documents-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">الرّقم</th>
+                        <th style="width: 30%;">الاسم واللقب</th>
+                        <th style="width: 20%;">تاريخ الازدياد</th>
+                        <th style="width: 20%;">المعدّل العامّ</th>
+                        <th style="width: 20%;">معيار الفصل في حالة التّساوي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="table-section-title">2 - قائمة النّاجحين الاحتياطية حسب درجة الاستحقاق:</h4>
+        <div class="documents-table-container">
+            <table class="documents-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">الرّقم</th>
+                        <th style="width: 30%;">الاسم واللقب</th>
+                        <th style="width: 20%;">تاريخ الازدياد</th>
+                        <th style="width: 20%;">المعدّل العامّ</th>
+                        <th style="width: 20%;">معيار الفصل في حالة التّساوي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="closing-section">
+            <p style="text-align: justify; font-weight: 700;">
+                وعند استنفاذ جدول الأعمال رفعت الجلسة على السّاعة **.....................** (اذكر التّوقيت).
+            </p>
+            
+            <div class="final-signatures">
+                <h4>الإمضاء الواضح لأعضاء اللجنة:</h4>
+                <ul>
+                    <li>السّيد(ة): **....** (السّلطة التي لها صلاحية التّعيين/ السّلطة الوصيّة/ ممثّل أحدهما)، **رئيساً**؛</li>
+                    <li>السّيد(ة): **.....................................** مسؤول المؤسّسة، مركز الامتحان، **عضواً**؛</li>
+                    <li>السّيد(ة): **.........................................** مصّحح ( 1 ) للاختبارات، **عضواً**؛</li>
+                    <li>السّيد(ة): **...........................................** مصّحح ( 1 ) للاختبارات، **عضواً**.</li>
+                </ul>
+                <p style="text-align: right; margin-top: 20px; font-style: italic;">
+                    حرّر هذا المحضر لإثبات ما ذكر أعلاه.
+                </p>
+                <p class="note-final">
+                    *مجموع صفحات المحضر يوقّع عليها أعضاء اللجنة.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- شريط الأزرار الجديد -->
+    <script>
+        // إنشاء شريط التنقل الجديد
+        const navigationBar = document.createElement('div');
+        navigationBar.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 12px;
+            background: rgba(63, 0, 92, 0.95);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+
+        navigationBar.innerHTML = `
+            <!-- زر الرجوع -->
+            <button onclick="window.location.href='../index.html'" style="
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 22px;
+                font-weight: bold;
+            " title="العودة إلى index.html">←</button>
+
+            <!-- زر الرئيسية -->
+            <button onclick="window.location.href='../../02_index.html'" style="
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="الذهاب إلى 02_index.html">🏠</button>
+
+            <!-- زر الطباعة -->
+            <button onclick="window.print()" style="
+                background: linear-gradient(135deg, #28a745, #1e7e34);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="طباعة الصفحة">🖨️</button>
+
+            <!-- زر التحميل الحقيقي -->
+            <button onclick="downloadAsPDF()" style="
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="تحميل كـ PDF">📄</button>
+        `;
+
+        document.body.appendChild(navigationBar);
+
+        // دالة تحميل PDF حقيقية
+        function downloadAsPDF() {
+            // عرض رسالة التحميل
+            document.getElementById('loadingMessage').style.display = 'block';
+            
+            // إخفاء شريط الأزرار مؤقتاً
+            navigationBar.style.display = 'none';
+            
+            // خيارات PDF
+            const element = document.querySelector('.document-container');
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'محضر_إعداد_قائمة_النجاحين_نهائيا.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // إنشاء وتحميل PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // إعادة إظهار شريط الأزرار
+                navigationBar.style.display = 'flex';
+                document.getElementById('loadingMessage').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>كشوف النّقاط للاختبارات الكتابيّة</title>
+    
+    <!-- تحميل مكتبة PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: "Amiri", "Cairo", serif;
+            color: #333;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffecb3 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .document-container {
+            width: 95%;
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 40px 20px; 
+            border: 5px solid #ff9800; /* لون مميز لكشوف النقاط */
+            background-color: #ffffff; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            line-height: 1.8;
+            text-align: right;
+        }
+        
+        .header-info { 
+            text-align: right; 
+            margin-bottom: 20px; 
+            font-size: 1.1em; 
+            font-weight: 700; 
+            line-height: 1.8;
+            color: #ef6c00; 
+        }
+
+        .sub-header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        .sub-header-table td {
+            width: 33.33%;
+            padding: 5px;
+            border-bottom: 1px dashed #ffb74d;
+            font-weight: 500;
+        }
+
+        .document-title { 
+            text-align: center; 
+            margin: 20px 0 10px; 
+            font-size: 1.5em; 
+            font-weight: 900; 
+            color: #e65100; 
+            border-bottom: 3px solid #e65100;
+            padding-bottom: 10px;
+        }
+        .rank-details {
+            text-align: center; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+            margin-bottom: 25px; 
+            color: #ff9800;
+        }
+        
+        /* تنسيق الجدول الرئيسي لكشوف النقاط */
+        .score-table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .score-table { 
+            width: 100%;
+            min-width: 1200px; 
+            border-collapse: collapse; 
+            margin: 10px 0;
+            font-size: 0.85em;
+            text-align: center;
+        }
+        .score-table th, 
+        .score-table td { 
+            border: 1px solid #ffcc80; 
+            padding: 8px 5px;
+            vertical-align: middle;
+            line-height: 1.3;
+        }
+        .score-table thead th { 
+            background-color: #ff9800; 
+            color: white; 
+            font-weight: 800; 
+        }
+        .score-table thead tr:nth-child(2) th {
+            background-color: #ffb74d;
+            color: #333;
+            font-weight: 700;
+        }
+        .score-table tbody td:first-child,
+        .score-table tbody td:nth-child(2),
+        .score-table tbody td:last-child {
+            font-weight: 700;
+        }
+        .score-table tbody td:nth-child(2) {
+            text-align: right;
+        }
+        .score-table tbody tr:nth-child(even) td {
+            background-color: #fff8e1;
+        }
+
+        /* التذييل والتوقيعات */
+        .closing-section {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            font-size: 1em;
+            line-height: 1.5;
+            color: #e65100;
+        }
+        .closing-section > div {
+            flex-basis: 30%;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .closing-section span {
+            display: block;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        /* رسالة التحميل */
+        #loadingMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10000;
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+        }
+
+        /* تنسيق الطباعة (مهم) */
+        @media print {
+            body { background: none; }
+            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 10px; max-width: none; }
+            .score-table th { background-color: #e0e0e0 !important; color: #000 !important; -webkit-print-color-adjust: exact; }
+            .score-table thead tr:nth-child(2) th { background-color: #f0f0f0 !important; -webkit-print-color-adjust: exact; }
+            .score-table tbody tr:nth-child(even) td { background-color: #f9f9f9 !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
+
+    <div class="document-container">
+        
+        <div class="header-info">
+            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
+            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنية</p>
+        </div>
+
+        <table class="sub-header-table">
+            <tr>
+                <td>**- مركز الامتحان:** .....................</td>
+                <td>**- المسجّلون:** .......................</td>
+                <td>**- الحضور:** .......................</td>
+            </tr>
+            <tr>
+                <td>**- الإدارة المعنيّة:** ......................</td>
+                <td>**- الغائبون:** ........................</td>
+                <td>**- عدد المناصب المالية المفتوحة:** ......</td>
+            </tr>
+        </table>
+        
+        <h3 class="document-title">
+             <span class="arabic-title">كُشُوفُ النَّقَاطِ لِلِاخْتِبَارَاتِ الكِتَابِيَّةِ</span>
+        </h3>
+        <p class="rank-details">
+            للمسابقة على أساس الاختبارات أو الاختبار والفحص المهني للالتحاق برتبة **..................**
+            <br>
+            دورة: **................**
+        </p>
+        
+        <div class="score-table-container">
+            <table class="score-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">الرّقم</th>
+                        <th rowspan="2">الاسم واللقب</th>
+                        <th colspan="6">الاختبارات الكتابيّة</th>
+                        <th rowspan="2" style="width: 8%;">مجموع النقاط</th>
+                        <th rowspan="2" style="width: 8%;">القرار</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">المادّة (معامل .....)</th>
+                        <th colspan="2">المادّة (معامل .....)</th>
+                        <th colspan="2">المادّة (معامل .....)</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #ffe0b2 !important; color: #333 !important; font-weight: 500 !important;" colspan="2"></th>
+                        <th>العلامة</th>
+                        <th>المعدّل</th>
+                        <th>العلامة</th>
+                        <th>المعدّل</th>
+                        <th>العلامة</th>
+                        <th>المعدّل</th>
+                        <th colspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="closing-section">
+            <div>
+                رئيس المركز
+                <span>الإمضاء (واضح)</span>
+            </div>
+            <div>
+                المصحّحون
+                <span>الإمضاء (واضح)</span>
+            </div>
+            <div>
+                مسؤول الأمانة التّقنية
+                <span>الإمضاء (واضح)</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- شريط الأزرار الجديد -->
+    <script>
+        // إنشاء شريط التنقل الجديد
+        const navigationBar = document.createElement('div');
+        navigationBar.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 12px;
+            background: rgba(63, 0, 92, 0.95);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+
+        navigationBar.innerHTML = `
+            <!-- زر الرجوع -->
+            <button onclick="window.location.href='../index.html'" style="
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 22px;
+                font-weight: bold;
+            " title="العودة إلى index.html">←</button>
+
+            <!-- زر الرئيسية -->
+            <button onclick="window.location.href='../../02_index.html'" style="
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="الذهاب إلى 02_index.html">🏠</button>
+
+            <!-- زر الطباعة -->
+            <button onclick="window.print()" style="
+                background: linear-gradient(135deg, #28a745, #1e7e34);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="طباعة الصفحة">🖨️</button>
+
+            <!-- زر التحميل الحقيقي -->
+            <button onclick="downloadAsPDF()" style="
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="تحميل كـ PDF">📄</button>
+        `;
+
+        document.body.appendChild(navigationBar);
+
+        // دالة تحميل PDF حقيقية
+        function downloadAsPDF() {
+            // عرض رسالة التحميل
+            document.getElementById('loadingMessage').style.display = 'block';
+            
+            // إخفاء شريط الأزرار مؤقتاً
+            navigationBar.style.display = 'none';
+            
+            // خيارات PDF
+            const element = document.querySelector('.document-container');
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'كشوف_النقاط_للاختبارات_الكتابية.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // إنشاء وتحميل PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // إعادة إظهار شريط الأزرار
+                navigationBar.style.display = 'flex';
+                document.getElementById('loadingMessage').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
