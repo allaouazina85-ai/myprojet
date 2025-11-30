@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>محضر إعلان النتائج النهائية (انتقاء)</title>
+    <!-- تحميل مكتبة PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: "Amiri", "Cairo", serif;
+            color: #333;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f4c3 0%, #c5e1a5 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .document-container {
+            width: 95%;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 40px 30px; 
+            border: 5px solid #558b2f; 
+            background-color: #ffffff; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            line-height: 1.8;
+            text-align: right;
+        }
+        
+        .header-info { 
+            text-align: right; 
+            margin-bottom: 20px; 
+            font-size: 1.1em; 
+            font-weight: 700; 
+            line-height: 1.8;
+            color: #7cb342; 
+        }
+
+        .document-title { 
+            text-align: center; 
+            margin: 20px 0 10px; 
+            font-size: 1.4em; 
+            font-weight: 900; 
+            color: #33691e; 
+            border-bottom: 3px solid #33691e;
+            padding-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #8bc34a;
+            margin-top: -10px;
+            margin-bottom: 25px;
+        }
+        
+        /* نص المحضر التمهيدي */
+        .preamble {
+            font-size: 1em;
+            margin-bottom: 20px;
+            text-align: justify;
+            padding: 15px;
+            border-right: 4px solid #aed581;
+            background-color: #f1f8e9;
+        }
+        .preamble strong {
+            color: #33691e;
+        }
+        
+        /* الأعضاء وجدول الأعمال */
+        .agenda, .committee-members {
+            margin-top: 20px;
+            padding-right: 20px;
+            font-weight: 700;
+        }
+        .committee-members ul {
+            list-style: none;
+            padding-right: 0;
+            margin-top: 10px;
+        }
+        .committee-members li {
+            font-weight: 500;
+            color: #558b2f;
+        }
+        
+        /* المداولات */
+        .deliberations-title {
+            font-size: 1.2em;
+            font-weight: 900;
+            color: #d32f2f;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #d32f2f;
+        }
+        .deliberations-list {
+            list-style: decimal;
+            padding-right: 30px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+        .deliberations-list li {
+            margin-bottom: 8px;
+        }
+        .final-decision {
+            font-weight: 900;
+            font-size: 1.1em;
+            color: #33691e;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #c5e1a5;
+            padding: 10px;
+            background-color: #e8f5e9;
+        }
+
+        /* تنسيق الجداول */
+        .table-title {
+            font-size: 1.1em;
+            font-weight: 900;
+            color: #33691e;
+            margin: 30px 0 10px;
+            border-bottom: 1px dashed #558b2f;
+            padding-bottom: 5px;
+        }
+        .results-table { 
+            width: 100%;
+            border-collapse: collapse; 
+            margin: 15px 0 30px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .results-table th, 
+        .results-table td { 
+            border: 1px solid #c5e1a5; 
+            padding: 8px 5px;
+            vertical-align: middle;
+            line-height: 1.3;
+        }
+        .results-table thead th { 
+            background-color: #558b2f; 
+            color: white; 
+            font-weight: 800; 
+        }
+        .results-table tbody tr:nth-child(even) {
+            background-color: #f1f8e9;
+        }
+        
+        /* التوقيعات والختام */
+        .signatures-section {
+            margin-top: 40px;
+            border-top: 1px dashed #558b2f;
+            padding-top: 20px;
+        }
+        .signatures-section p {
+            font-weight: 900;
+            color: #33691e;
+        }
+        .committee-signatures {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .committee-signatures div {
+            text-align: center;
+            width: 30%;
+        }
+        .committee-signatures span {
+            display: block;
+            margin-top: 20px;
+            border-top: 1px solid #333;
+            padding-top: 5px;
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+        .date-place {
+            text-align: right;
+            margin-top: 30px;
+            font-weight: 700;
+            color: #7cb342;
+        }
+        .note {
+            font-size: 0.85em;
+            font-style: italic;
+            color: #d32f2f;
+            margin-top: 20px;
+        }
+
+        /* تنسيق الطباعة (مهم) */
+        @media print {
+            body { background: none; }
+            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 20px; max-width: none; }
+            .preamble, .results-table th { background-color: #f0f0f0 !important; border-right-color: #333 !important; color: #000 !important; -webkit-print-color-adjust: exact; }
+            .final-decision { background-color: #e0e7e1 !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-container">
+        
+        <div class="header-info">
+            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
+            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنيّة</p>
+        </div>
+        
+        <h3 class="document-title">
+             مَحْضَرُ اللَّجْنَةِ المُكَلَّفَةِ بِانْتِقَاءِ المُتَرَشِّحِينَ المَقْبُولِينَ نِهَائِيًا
+        </h3>
+        <p class="subtitle">
+            في مسابقة التّوظيف عن طريق الانتقاء بناء على دراسة الملفّات للالتحاق بمنصب شغل **......** بالتّوقيت الكامل / الجزئي عقد محدّد المدّة
+        </p>
+
+        <div class="preamble">
+            <p>
+                في عام **........................** وفي **................** من شهر **.............** انعقدت بمقرّ **…. ( تحديد مكان الاجتماع )** اجتماع اللجنة المكلّفة بانتقاء المترشّحين المقبولين نهائيا في مسابقة التّوظيف عن طريق الانتقاء بناء على دراسة الملفّات للالتحاق بمنصب شغل **....................** بالتّوقيت الكامل / الجزئي عقد محدّد المدّة، وذلك طبقا لاحكام القرار/ المقرّر رقم **............** المؤرّخ في **....................** المتضمّن فتح توظيف عن طريق الانتقاء بناء على دراسة الملفّات للالتحاق بمنصب شغل **.........................** بالتّوقيت الكامل / الجزئي.
+            </p>
+        </div>
+
+        <p class="agenda">
+            **جدول الأعمال:**
+            <ul>
+                <li>- إعداد قائمة المترشّحين المقبولين نهائيا في التّوظيف عن طريق الانتقاء بناء على دراسة الملفّات للالتحاق بمنصب شغل **........** المنظمّة بعنوان سنة **....** من طرف **... (بيان المؤسّسة أو الإدارة العموميّة المعنية)**.</li>
+            </ul>
+        </p>
+
+        <div class="committee-members">
+            <p>
+                **حضر الأعضاء الآتية أسماؤهم:**
+            </p>
+            <ul>
+                <li>- السّيد(ة): **.............................** السّلطة الاداريّة المختصّة/ ممثّله، **رئيسا**؛</li>
+                <li>- السّيد(ة): **..................** ممثّل مؤهّل عن السّلطة الاداريّة المختصّة، **عضوا**؛</li>
+                <li>- السّيد(ة): **..................** ممثّل مؤهّل عن السّلطة الاداريّة المختصّة، **عضوا**؛</li>
+            </ul>
+        </div>
+
+        <div class="deliberations-title">
+            المداولات:
+        </div>
+        <ul class="deliberations-list">
+            <li>تثبيت اشهار القرار / المقرّر رقم **......** المؤرّخ في **.... ......... ........** المتضمّن فتح توظيف عن طريق الانتقاء بناء على دراسة الملفّات للالتحاق بمنصب شغل **..........** بالتّوقيت الكامل / الجزئي.</li>
+            <li>تثبيت عدد المناصب الماليّة المفتوحة بعنوان مسابقة توظيف الاعوان المتعاقدين عن طريق الانتقاء بناء على دراسة الملفّات والمحدّدة بـ : **........** منصبا طبقا لـ **.........................**</li>
+            <li>التأكّد من مجموع الشّروط القانونيّة الاساسيّة المطلوبة للمشاركة في التّوظيف عن طريق الانتقاء بناء على دراسة الملفّات المذكور أعلاه.</li>
+            <li>دراسة جميع ملفّات المترشّحين المسجلين ضمن محضر اللجنة التّقنية لدراسة الملفّات المقبولة.</li>
+            <li>دراسة كشف نقاط الاختبارات التّطبيقية المصادق عليه من طرف مديرية النّقل. (1)</li>
+        </ul>
+        
+        <p class="final-decision">
+            تصادق باجماع أعضائها على قائمة المترشّحين المقبولين نهائيا من بين المترشّحين المسجّلين وذلك حسب درجة الاستحقاق وفي حدود المناصب الماليّة الشّاغرة.
+        </p>
+
+        <h4 class="table-title">1- قائمة المقبولين النّهائية حسب درجة الاستحقاق:</h4>
+        <div style="overflow-x: auto;">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">الرّقم</th>
+                        <th style="width: 30%;">الاسم واللقب</th>
+                        <th style="width: 25%;">تاريخ الازدياد</th>
+                        <th style="width: 35%;">معيار الفصل في حالة التّساوي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>01</td><td></td><td></td><td></td></tr>
+                    <tr><td>02</td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h4 class="table-title">2- قائمة المقبولين الاحتياطيّة حسب درجة الاستحقاق:</h4>
+        <div style="overflow-x: auto;">
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">الرّقم</th>
+                        <th style="width: 30%;">الاسم واللقب</th>
+                        <th style="width: 25%;">تاريخ الازدياد</th>
+                        <th style="width: 35%;">معيار الفصل في حالة التّساوي</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>01</td><td></td><td></td><td></td></tr>
+                    <tr><td>02</td><td></td><td></td><td></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="signatures-section">
+            <p>
+                الامضاء الواضح لأعضاء اللجنة:
+            </p>
+            <div class="committee-signatures">
+                <div>
+                    **...................................**
+                    <span>الرئيس</span>
+                </div>
+                <div>
+                    **...................................**
+                    <span>عضو</span>
+                </div>
+                <div>
+                    **...................................**
+                    <span>عضو</span>
+                </div>
+            </div>
+            <p class="date-place">
+                حرّر بـ **...................** في **............**
+            </p>
+            <p class="note">
+                *مجموع صفحات المحضر يوقّع عليها اعضاء اللجنة.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- شريط الأزرار الموحد -->
+    <script>
+        // إنشاء شريط التنقل الجديد
+        const navigationBar = document.createElement('div');
+        navigationBar.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 12px;
+            background: rgba(63, 0, 92, 0.95);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+
+        navigationBar.innerHTML = `
+            <!-- زر الرجوع -->
+            <button onclick="window.location.href='../index.html'" style="
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 22px;
+                font-weight: bold;
+            " title="العودة إلى ruban3/index.html">←</button>
+
+            <!-- زر الرئيسية -->
+            <button onclick="window.location.href='../../02_index.html'" style="
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="الذهاب إلى 02_index.html الرئيسي">🏠</button>
+
+            <!-- زر الطباعة -->
+            <button onclick="window.print()" style="
+                background: linear-gradient(135deg, #28a745, #1e7e34);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="طباعة الصفحة">🖨️</button>
+
+            <!-- زر تحميل PDF -->
+            <button onclick="downloadAsPDF()" style="
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="تحميل كـ PDF">📄</button>
+        `;
+
+        document.body.appendChild(navigationBar);
+
+        // دالة تحميل PDF
+        function downloadAsPDF() {
+            const element = document.querySelector('.document-container');
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'محضر_إعلان_النتائج_النهائية.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>محضر اللجنة المكلّفة بدراسة ملفّات الترشّح</title>
+    
+    <!-- تحميل مكتبة PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        /* استيراد الخط */
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;900&display=swap');
+        
+        /* 📝 تنسيقات الوثيقة الرئيسية 📝 */
+        
+        body {
+            font-family: "Amiri", "Cairo", serif;
+            color: #333;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 70px; /* لإفساح المجال لشريط الإجراءات */
+        }
+
+        .document-container {
+            width: 95%; 
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 40px;
+            border: 4px solid #1e88e5; 
+            background-color: #ffffff; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            line-height: 1.8;
+            text-align: right;
+        }
+        
+        .header-info { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 1.2em; 
+            font-weight: 700; 
+            line-height: 1.8;
+            color: #0d47a1; 
+        }
+
+        .document-title { 
+            text-align: center; 
+            margin: 25px 0 40px; 
+            font-size: 2em; 
+            font-weight: 900; 
+            color: #1e88e5; 
+            border-bottom: 5px solid #1e88e5;
+            padding-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .document-title .arabic-title {
+            font-family: 'Amiri', 'Traditional Arabic', serif; 
+            font-weight: 900;
+            line-height: 1.2;
+            display: block; 
+        }
+        
+        .main-text {
+            font-size: 1.1em;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        .committee-members {
+            margin-right: 20px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            list-style-type: none;
+            padding-right: 0;
+        }
+        .committee-members li {
+            margin-bottom: 8px;
+            padding-right: 15px;
+            position: relative;
+        }
+        .committee-members li::before {
+            content: "•";
+            color: #388e3c;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: -1em;
+            position: absolute;
+            right: 0;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 800;
+            color: #42a5f5;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed #90caf9;
+            padding-bottom: 5px;
+        }
+
+        /* تنسيق الجدول */
+        .documents-table { 
+            width:100%; 
+            border-collapse: collapse; 
+            margin: 20px 0;
+            font-size: 0.9em;
+        }
+        .documents-table th, 
+        .documents-table td { 
+            border: 1px solid #90caf9; 
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 1.4;
+        }
+        .documents-table th { 
+            background-color: #42a5f5; 
+            color: white; 
+            font-weight: 800; 
+        }
+        .documents-table tr:nth-child(even) td {
+            background-color: #f5f5f5;
+        }
+        
+        .table-note {
+            font-size: 0.9em;
+            margin-top: 20px;
+            padding: 10px;
+            border-left: 5px solid #ffb300;
+            background-color: #fffde7;
+            text-align: right;
+        }
+        .table-note strong {
+            color: #ffa000;
+        }
+
+        /* التذييل والتوقيعات */
+        .footer-signatures {
+            margin-top: 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-end;
+            font-size: 1.05em;
+            color: #0d47a1;
+            padding-top: 20px; /* فاصل عن الجداول */
+        }
+        .footer-signatures div {
+            flex-basis: 45%;
+            text-align: center;
+            line-height: 1.5;
+        }
+        .footer-signatures .date-place {
+            text-align: right;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        /* تنسيق الطباعة (مهم) */
+        @media print {
+            body { background: none; padding-top: 0; }
+            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 20px; width: 100%; max-width: none; }
+            
+            .documents-table { page-break-inside: auto; }
+            .documents-table tr { page-break-inside: avoid; page-break-after: auto; }
+            /* جعل رؤوس الجداول تظهر بلون فاتح أو أسود (مهم للطباعة) */
+            .documents-table th { background-color: #f0f0f0 !important; color: #000 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; border-color: #333 !important; }
+            .table-note { border-left: 2px solid #333; background-color: #f0f0f0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        /* رسالة التحميل */
+        #loadingMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 10000;
+            font-family: 'Amiri', serif;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
+
+    <div class="document-container">
+        
+        <div class="header-info">
+            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
+            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنيّة</p>
+        </div>
+        
+        <h3 class="document-title">
+             <span class="arabic-title">مَحْضَرُ اللَّجْنَةِ الْمُكَلَّفَةِ بِدِرَاسَةِ مِلَفَّاتِ التَّرَشُّحِ</span>
+        </h3>
+        
+        <p style="text-align: center; font-size: 1.15em; font-weight: bold; margin-bottom: 25px; color: #0d47a1;">
+            للالتحاق برتبة .............................
+        </p>
+
+        <div class="main-text">
+            <p>
+                في عام ......... (**تحديد السنة**) وفي ........... من شهر ......... وطبقا للقرار / المقرّر رقم **.....** المؤرّخ في .............. المتضمّن فتح المسابقة على أساس الشّهادات للالتحاق برتبة.............، اجتمعت اللجنة المكلّفة بدراسة ملفّات الترشّح والبالغ عددها **.......** كما هو مدوّن في السجلّ الخاصّ المفتوح لهذا الغرض.
+            </p>
+            <p style="font-weight: bold; margin-top: 25px; color: #333;">حضر الأعضاء الآتية أسماؤهم:</p>
+            <ul class="committee-members">
+                <li>لقب، اسم ووظيفة (**السّلطة التي لها صلاحية التّعيين المؤهّلة قانونا أو ممثّلها**)، رئيساً؛</li>
+                <li>لقب، اسم ووظيفة (**ممثلي المؤسّسة أو الإدارة العموميّة المعنية**)؛</li>
+                <li>لقب، اسم (**الممثّلين المنتخبين في اللجنة الإدارية المتساوية الأعضاء المختصّة إزاء السّلك أو الرّتبة المعنية بالمسابقة**).</li>
+            </ul>
+            <p>
+                عند انتهاء أشغالها، اعتمدت اللجنة ملفّات المترشّحين المدوّنة أسماؤهم في الجدول المرفق في طيّه.
+            </p>
+            <p style="font-weight: bold; border: 1px solid #ffb300; padding: 10px; background-color: #fffde7; text-align: center; border-radius: 5px;">
+                ملاحظة: يجب ألاّ يتضمّن محضر اللّجنة والجدول المرفق به أيّ زيادة أو شطب. 
+            </p>
+        </div>
+        
+        <div class="section-title">الجدول المخصّص لانتقاء المترشحين للمسابقات على أساس الشّهادات</div>
+        
+        <h4 style="font-size: 1.1em; font-weight: bold; margin-top: 25px; color: #388e3c;">1- ملفات الترشّح المقبولة:</h4>
+        <div style="overflow-x: auto;">
+            <table class="documents-table">
+                <thead>
+                    <tr>
+                        <th style="min-width: 50px;">الرقم التسلسلي</th>
+                        <th style="min-width: 100px;">رقم التّسجيل في السجلّ الخاصّ</th>
+                        <th style="min-width: 150px;">اسم ولقب المترشّح</th>
+                        <th style="min-width: 100px;">تاريخ الميلاد</th>
+                        <th style="min-width: 150px;">المؤهّل أو الشّهادة</th>
+                        <th style="min-width: 200px;">التخصّص (تحديد التخصّص المدوّن في المؤهّل أو الشّهادة)</th>
+                        <th style="min-width: 150px;">الوضعية اتّجاه الخدمة الوطنية (مؤجّل/ معفى لسبب طبّي/ مؤهّل لا يجند)</th>
+                        <th style="min-width: 150px;">تاريخ انقضاء التأجيل من الخدمة الوطنية (بالنّسبة للمؤجّل)</th>
+                        <th style="min-width: 150px;">تاريخ انقضاء سريان صحيفة السّوابق القضائيّة رقم 3</th>
+                        <th style="min-width: 80px;">ملاحظات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    </tbody>
+            </table>
+        </div>
+
+        <h4 style="font-size: 1.1em; font-weight: bold; margin-top: 35px; color: #d32f2f;">2- ملفات الترشّح غير المقبولة:</h4>
+        <div style="overflow-x: auto;">
+            <table class="documents-table">
+                <thead>
+                    <tr>
+                        <th style="min-width: 50px;">الرقم التسلسلي</th>
+                        <th style="min-width: 100px;">رقم التّسجيل في السجلّ الخاصّ</th>
+                        <th style="min-width: 150px;">اسم ولقب المترشّح</th>
+                        <th style="min-width: 100px;">تاريخ الميلاد</th>
+                        <th style="min-width: 200px;">سبب الرّفض بالتفصيل (وثائق ناقصة أو منتهيّة الصّلاحية أو أيّ سبب آخر)</th>
+                        <th style="min-width: 150px;">مرجع الرّفض (رقم وتاريخ الرسالة الموصي عليها)</th>
+                        <th style="min-width: 80px;">ملاحظات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>(1)</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>(1)</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    </tbody>
+            </table>
+        </div>
+        
+        <p class="table-note">
+            <strong>ملاحظة (1):</strong> في حالة رفض الملفّ بسبب عدم تطابق التخصّص ينبغي ذكر ميدان / شعبة / فرع وتخصّص الشّهادة بدقّة.
+        </p>
+
+        <div class="footer-signatures">
+            <div style="text-align: right; flex-basis: 50%;">
+                 <p class="date-place">حرّر بـ ..................... في ...........</p>
+                 <p style="text-decoration: underline; margin-bottom: 20px;">إمضاء أعضاء اللجنة</p>
+            </div>
+            <div style="text-align: left; flex-basis: 45%;">
+                 <p>&nbsp;</p>
+                 <p style="text-align: center;">الإمضاء</p>
+                 <p style="font-size: 0.9em; text-align: center;">(من طرف السّلطة الإداريّة المؤهّلة)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- إضافة شريط الأزرار الجديد مع تحميل PDF حقيقي -->
+    <script>
+        // إنشاء شريط التنقل الجديد
+        const navigationBar = document.createElement('div');
+        navigationBar.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 12px;
+            background: rgba(63, 0, 92, 0.95);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+        `;
+
+        navigationBar.innerHTML = `
+            <!-- زر الرجوع -->
+            <button onclick="window.location.href='../index.html'" style="
+                background: linear-gradient(135deg, #ff0000, #cc0000);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 22px;
+                font-weight: bold;
+            " title="العودة إلى index.html">←</button>
+
+            <!-- زر الرئيسية -->
+            <button onclick="window.location.href='../../02_index.html'" style="
+                background: linear-gradient(135deg, #007bff, #0056b3);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="الذهاب إلى 02_index.html">🏠</button>
+
+            <!-- زر الطباعة -->
+            <button onclick="window.print()" style="
+                background: linear-gradient(135deg, #28a745, #1e7e34);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="طباعة الصفحة">🖨️</button>
+
+            <!-- زر التحميل الحقيقي -->
+            <button onclick="downloadAsPDF()" style="
+                background: linear-gradient(135deg, #ffc107, #e0a800);
+                color: white;
+                border: none;
+                width: 55px;
+                height: 55px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 20px;
+            " title="تحميل كـ PDF">📄</button>
+        `;
+
+        document.body.appendChild(navigationBar);
+
+        // دالة تحميل PDF حقيقية
+        function downloadAsPDF() {
+            // عرض رسالة التحميل
+            document.getElementById('loadingMessage').style.display = 'block';
+            
+            // إخفاء شريط الأزرار مؤقتاً
+            navigationBar.style.display = 'none';
+            
+            // خيارات PDF
+            const element = document.querySelector('.document-container');
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'محضر_لجنة_دراسة_ملفات_الترشح.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // إنشاء وتحميل PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // إعادة إظهار شريط الأزرار
+                navigationBar.style.display = 'flex';
+                document.getElementById('loadingMessage').style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أنواع المسابقات المتاحة - بوابة التوظيف الإلكتروني</title>
+    <link rel="stylesheet" href="styles.css"> 
+</head>
+<body>
+    
+    <header>
+        
+        <img src="../icons/1.webp" alt="شعار رئاسة الجمهورية" class="president-logo">
+        <img src="../icons/council_logo.png" alt="شعار المجلس الأعلى للغة العربية" class="council-logo-fixed">
+        
+        <div class="main-title">
+            <h1>الجمهوريّة الجزائريّة الديمقراطيّة الشعبيّة</h1>
+            <h2>رئاسة الجمهورية</h2>
+            <h3>المجلس الأعلى للغة العربيّة</h3>
+        </div>
+    </header>
+
+    <main>
+        
+        <div class="container" role="list">
+            
+            <div class="column" role="listitem">
+                <div class="icon" onclick="openPage('pages/page1.html')"><span> مسابقة على اساس الشّهادات</span></div>
+                <div class="icon" onclick="openPage('pages/page2.html')"><span>مسابقة على أساس الشّهادات للالتحاق بالتّكوين المتخصّص</span></div>
+                <div class="icon" onclick="openPage('pages/page3.html')"><span>مسابقة على أساس الاختبارات</span></div>
+                <div class="icon" onclick="openPage('pages/page4.html')"><span>مسابقة على أساس الاختبارات للالتحاق بالتّكوين المتخصّص</span></div>
+            </div>
+
+            <div class="column" role="listitem">
+                <div class="icon" onclick="openPage('pages/page5.html')"><span>فتح اختبار مهنيّ</span></div>
+                <div class="icon" onclick="openPage('pages/page6.html')"><span>فتح فحص مهنيّ</span></div>
+                <div class="icon" onclick="openPage('pages/page7.html')"><span>مسابقة ترقيّة على أساس الاختبارات</span></div>
+                <div class="icon" onclick="openPage('pages/page8.html')"><span>ّفتح امتحان مهني</span>
+               </div>
+
+            </div>
+
+            <div class="column" role="listitem">
+                <div class="icon" onclick="openPage('pages/page9.html')"><span>فتح ترقيّة على اساس فحص مهنيّ</span></div>
+                <div class="icon" onclick="openPage('pages/page10.html', 'pages/page11.html')">
+                <span>فتح مسابقات التّوظيف في مناصب شغل الاعوان المتعاقدين</span>
+            </div>
+           
+        </div>
+        
+    </main>
+    
+    <a href="index.html" class="back-button">
+        العودة للصفحة الرئيسية</a>
+
+    <div class="bottom-left-sticker">
+        هندسة وبرمجة علاوة زينة
+    </div>
+
+    <script>
+   function openPage(url, popupUrl){ 
+
+    // 1. فتح النافذة المنبثقة أولاً حتى لا يتم حظرها
+    if (popupUrl) {
+        window.open(
+            popupUrl,
+            'PopupNotification',
+            'width=650,height=450,scrollbars=yes,resizable=yes'
+        );
+    }
+
+    // 2. بعدها ننتقل للصفحة الأساسية
+    window.location.href = url; 
+}
+
+    </script>
+</body>
+</html>

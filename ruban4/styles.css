@@ -1,0 +1,186 @@
+/* ____________________________________________________________________ */
+/* الرسوم المتحركة للخلفية المتدرجة */
+/* ____________________________________________________________________ */
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; } 
+    50% { background-position: 100% 50%; } 
+    100% { background-position: 0% 50%; } 
+}
+
+/* ____________________________________________________________________ */
+/* تطبيق الخلفية المزدوجة على عنصر وهمي (body::before) لضمان الترتيب */
+/* ____________________________________________________________________ */
+body {
+    direction: rtl; 
+    font-family: 'Amiri', serif; 
+    margin: 0; padding: 0;
+    
+    /* إعدادات الجسم الأساسية */
+    background: white; 
+    min-height: 100vh; 
+    position: relative; 
+}
+
+/* العنصر الوهمي الذي يحمل الخلفيات (يقع في الخلفية) */
+body::before {
+    content: '';
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1; 
+    
+    /* الخلفيات المزدوجة (المتدرج المتحرك الشفاف + الشعار الكبير الموسَّط) */
+    background: 
+        linear-gradient(90deg, 
+            rgba(0, 0, 255, 0.2), 
+            rgba(255, 255, 0, 0.2), 
+            rgba(255, 0, 0, 0.2), 
+            rgba(0, 128, 0, 0.2)        
+        ),
+        url('../icons/council_logo.png');
+        
+    background-size: 200% 200%, 80vh auto; 
+    background-repeat: repeat-x, no-repeat; 
+    background-position: 0% 50%, center center; 
+    background-attachment: scroll, fixed; 
+    
+    animation: gradientAnimation 15s ease infinite alternate; 
+}
+
+
+/* ____________________________________________________________________ */
+/* الترويسة والشعارات الثابتة (في الزوايا) */
+/* ____________________________________________________________________ */
+header {
+    color: #000000; 
+    padding: 60px 5%; 
+    display: block; 
+    text-align: center; 
+    position: relative; 
+    /* الترويسة شفافة بالكامل الآن */
+    z-index: 2; 
+}
+
+/* الشعار الثابت الأيمن (رئاسة الجمهورية) */
+.president-logo {
+    position: absolute;
+    top: 20px; right: 5%; 
+    width: 150px; 
+    height: auto;
+    z-index: 10; 
+}
+
+/* الشعار الثابت الأيسر (المجلس الأعلى للغة العربية) */
+.council-logo-fixed {
+    position: absolute;
+    top: 20px; left: 5%; 
+    width: 150px; 
+    height: auto;
+    z-index: 10;
+}
+
+/* توسيط العناوين */
+.main-title {
+    width: 100%;
+    text-align: center; 
+    margin-top: 20px; 
+}
+
+.main-title h1,
+.main-title h2,
+.main-title h3 {
+    font-size: 2.2rem; 
+    font-weight: bold;
+    margin: 5px 0; 
+    text-align: center; 
+}
+
+/* ____________________________________________________________________ */
+/* تنسيق زر الرجوع (ثابت في الزاوية اليمنى السفلية) */
+/* ____________________________________________________________________ */
+.back-button {
+    /* التثبيت في الشاشة */
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px; 
+    
+    /* التنسيق الجمالي */
+    background-color: #007bff; 
+    color: white; 
+    padding: 12px 25px; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    font-size: 1.2rem; 
+    font-weight: bold;
+    cursor: pointer; 
+    
+    /* العمق (ليظهر فوق كل شيء) */
+    z-index: 100; 
+    
+    /* إضافة ظل خفيف */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    
+    /* انتقال سلس للتأثيرات */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* تأثير عند المرور بالماوس */
+.back-button:hover {
+    background-color: #0056b3; 
+    transform: translateY(-2px); 
+}
+
+/* ____________________________________________________________________ */
+/* تنسيق اللاصقة (ثابتة، شفافة، في الزاوية اليسرى السفلية) */
+/* ____________________________________________________________________ */
+.bottom-left-sticker {
+    /* التثبيت في الشاشة */
+    position: fixed;
+    bottom: 30px; /* مسافة من الأسفل */
+    left: 30px; /* الزاوية اليسرى */
+    
+    /* التنسيق الجمالي */
+    background-color: #ffc107; /* لون أصفر واضح */
+    color: #343a40; /* لون نص داكن */
+    padding: 15px 20px;
+    border-radius: 50%; /* لجعلها دائرية */
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    
+    /* الشفافية (القيمة 0.6 تجعلها شفافة نسبياً) */
+    opacity: 0.6; 
+    z-index: 99; 
+    
+    /* لعمل "الومضة" (انتقال سلس بين الحالات) */
+    transition: opacity 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+/* تأثير الومضة (الفليكر/النبض) عند المرور بالماوس */
+.bottom-left-sticker:hover {
+    opacity: 1.0; /* زيادة الوضوح (الومضة) */
+    /* إضافة ظل نبضي متوهج حول اللاصقة */
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.8), 0 0 30px rgba(255, 193, 7, 0.4); 
+}
+
+/* إلغاء أكواد الشعار المتحرك القديمة (غير مستخدمة الآن) */
+.background-moving-logo, .moving-logo-img {
+    display: none !important; 
+}
+
+/* ____________________________________________________________________ */
+/* تنسيق صورة الواجهة (image.jpg) - التعديل النهائي */
+/* ____________________________________________________________________ */
+.main-featured-image {
+    /* التوسيط الأفق والمحاذاة الرأسية */
+    display: block; 
+    margin: 30px auto; 
+
+    /* تم تحديد أقصى عرض بـ 500 بكسل */
+    max-width: 500px; 
+    width: 90%; 
+    height: auto; 
+    
+  
+}

@@ -1,0 +1,557 @@
+/* ____________________________________________________________________ */
+
+/* التعديل الحاسم: تطبيق خاصية box-sizing على جميع العناصر (من الكود الأصلي) */
+
+/* ____________________________________________________________________ */
+
+*, *::before, *::after {
+
+    box-sizing: border-box;
+
+}
+
+
+
+/* ____________________________________________________________________ */
+
+/* الرسوم المتحركة للخلفية المتدرجة (من الكود السابق) */
+
+/* ____________________________________________________________________ */
+
+@keyframes gradientAnimation {
+
+    0% { background-position: 0% 50%; } 
+
+    50% { background-position: 100% 50%; } 
+
+    100% { background-position: 0% 50%; } 
+
+}
+
+
+
+/* ____________________________________________________________________ */
+
+/* تطبيق الخلفية المزدوجة على عنصر وهمي (body::before) (من الكود السابق) */
+
+/* ____________________________________________________________________ */
+
+body {
+
+    direction: rtl; 
+
+    font-family: 'Amiri', serif; 
+
+    margin: 0; padding: 0;
+
+    
+
+    /* إعدادات الجسم الأساسية */
+
+    background: white; 
+
+    min-height: 100vh; 
+
+    position: relative; 
+
+    
+
+    /* 💡 التعديل: إزالة الخلفية المزدوجة من body واستخدام body::before فقط لتقليل التداخل */
+
+}
+
+
+
+/* العنصر الوهمي الذي يحمل الخلفيات (يقع في الخلفية) */
+
+body::before {
+
+    content: '';
+
+    position: fixed; 
+
+    top: 0; left: 0;
+
+    width: 100%; height: 100%;
+
+    z-index: -1; 
+
+    
+
+    /* الخلفيات المزدوجة (المتدرج المتحرك الشفاف + الشعار الكبير الموسَّط) */
+
+    background: 
+
+        linear-gradient(90deg, 
+
+            rgba(0, 0, 255, 0.2), 
+
+            rgba(255, 255, 0, 0.2), 
+
+            rgba(255, 0, 0, 0.2), 
+
+            rgba(0, 128, 0, 0.2)       
+
+        ),
+
+        url('../icons/council_logo.png');
+
+        
+
+    background-size: 200% 200%, 80vh auto; 
+
+    background-repeat: repeat-x, no-repeat; 
+
+    background-position: 0% 50%, center center; 
+
+    background-attachment: scroll, fixed; 
+
+    
+
+    animation: gradientAnimation 15s ease infinite alternate; 
+
+}
+
+
+
+
+
+/* ____________________________________________________________________ */
+
+/* الترويسة والشعارات الثابتة (في الزوايا) - تم تعديل Z-INDEX */
+
+/* ____________________________________________________________________ */
+
+header {
+
+    color: #000000; 
+
+    padding: 60px 5%; 
+
+    display: block; 
+
+    text-align: center; 
+
+    position: relative; 
+
+    z-index: 10; 
+
+}
+
+
+
+/* الشعار الثابت الأيمن (رئاسة الجمهورية) */
+
+.president-logo {
+
+    position: absolute;
+
+    top: 20px; right: 5%; 
+
+    width: 150px; 
+
+    height: auto;
+
+    z-index: 10; 
+
+}
+
+
+
+/* الشعار الثابت الأيسر (المجلس الأعلى للغة العربية) */
+
+.council-logo-fixed {
+
+    position: absolute;
+
+    top: 20px; left: 5%; 
+
+    width: 150px; 
+
+    height: auto;
+
+    z-index: 10;
+
+}
+
+
+
+/* توسيط العناوين */
+
+.main-title {
+
+    width: 100%;
+
+    text-align: center; 
+
+    margin-top: 20px; 
+
+}
+
+
+
+.main-title h1,
+
+.main-title h2,
+
+.main-title h3 {
+
+    font-size: 2.2rem; 
+
+    font-weight: bold;
+
+    margin: 5px 0; 
+
+    text-align: center; 
+
+}
+
+
+
+/* ____________________________________________________________________ */
+
+/* تنسيقات المحتوى الرئيسي (main) - تم تعديل Z-INDEX */
+
+/* ____________________________________________________________________ */
+
+main {
+
+    /* تم استبدال الخلفية البيضاء الشفافة داخل main بتنسيق العمود الأصلي */
+
+    padding: 40px 20px; 
+
+    margin: 20px auto;
+
+    width: 95%; 
+
+    max-width: 1400px;
+
+    border-radius: 10px;
+
+    
+
+    position: relative; 
+
+    z-index: 5;
+
+    
+
+    /* 💡 التعديل: إزالة الخلفية من main لأن الأعمدة نفسها أصبحت تحمل الخلفية البيضاء */
+
+    background-color: transparent; 
+
+    box-shadow: none; 
+
+    padding: 22px 0; /* تقليل المسافة الداخلية لـ main */
+
+}
+
+
+
+/* ____________________________________________________________________ */
+
+/* تصميم الأعمدة الأصلي (CSS Grid) */
+
+/* ____________________________________________________________________ */
+
+.columns-wrap{
+
+    display: grid;
+
+    /* التعديل: استبدال 5 أعمدة grid بنظام 3 ثم 2 للحفاظ على الترتيب الجيد في الشاشات العريضة */
+
+    grid-template-columns: repeat(5, 1fr); 
+
+    gap:14px;
+
+    padding:0 22px; /* تعديل المسافة من الجوانب */
+
+    align-items:start;
+
+    max-width: 1300px;
+
+    margin: 0 auto;
+
+}
+
+
+
+/* كل عمود (استبدال التنسيق Flexbox القديم) */
+
+.column{
+
+    background: rgba(255,255,255,0.95);
+
+    border-radius:12px;
+
+    padding:12px;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+
+    min-height:120px;
+
+    overflow:auto;
+
+    /* إلغاء تنسيق الحدود من Flexbox */
+
+    border-right: none;
+
+    padding-left: 12px;
+
+}
+
+.column h2{
+
+    font-size:16px;
+
+    margin:4px 0 10px;
+
+    color:#003366;
+
+    text-align:center;
+
+    line-height:1.3;
+
+}
+
+
+
+/* عناصر كل عمود (الخانات/الأيقونات) */
+
+.items{ 
+
+    display:flex; 
+
+    flex-direction:column; 
+
+    gap:8px; 
+
+    align-items:stretch; 
+
+}
+
+.item{
+
+    border-radius:18px;
+
+    padding:10px 12px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    /* إضافة transition لـ transform و box-shadow */
+
+    transition: transform .16s ease, box-shadow .16s ease;
+
+    color:#111;
+
+    background:linear-gradient(90deg, #fff 0%, #fff 100%);
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+
+    font-size:13px;
+
+    text-align:right;
+
+    line-height:1.4;
+
+}
+
+
+
+/* تأثير تمرير (Hover Effect) الأصلي */
+
+.item:hover{
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+
+}
+
+
+
+/* التنسيق الإضافي للأيقونات والألوان (لأن الأيقونات موجودة كـ <i>) */
+
+.item i {
+
+    color: #003366; /* لون الأيقونة */
+
+    margin-left: 10px;
+
+    font-size: 1.2em; /* حجم الأيقونة أكبر قليلاً */
+
+}
+
+
+
+
+
+/* تلوين عناصر بحسب الترتيب — ألوان متشابهة للصورة الأصلية */
+
+.column .item:nth-child(1){ background:#ffd54f; }
+
+.column .item:nth-child(2){ background:#ffb74d; }
+
+.column .item:nth-child(3){ background:#ff8a65; }
+
+.column .item:nth-child(4){ background:#f48fb1; }
+
+.column .item:nth-child(5){ background:#ce93d8; }
+
+.column .item:nth-child(6){ background:#9fa8da; }
+
+.column .item:nth-child(7){ background:#80cbc4; }
+
+.column .item:nth-child(8){ background:#a5d6a7; }
+
+.column .item:nth-child(9){ background:#fff59d; }
+
+.column .item:nth-child(10){ background:#90caf9; }
+
+.column .item:nth-child(11){ background:#b39ddb; }
+
+.column .item:nth-child(12){ background:#ffcc80; }
+
+.column .item:nth-child(13){ background:#c5e1a5; }
+
+.column .item:nth-child(14){ background:#ffe082; }
+
+
+
+/* ____________________________________________________________________ */
+
+/* تنسيق زر الرجوع (ثابت في الزاوية اليمنى السفلية) */
+
+/* ____________________________________________________________________ */
+
+.back-button {
+
+    position: fixed; 
+
+    bottom: 30px; 
+
+    right: 30px; 
+
+    background-color: #007bff; 
+
+    color: white; 
+
+    padding: 12px 25px; 
+
+    border-radius: 8px; 
+
+    text-decoration: none; 
+
+    font-size: 1.2rem; 
+
+    font-weight: bold;
+
+    cursor: pointer; 
+
+    z-index: 100; 
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+.back-button:hover {
+
+    background-color: #0056b3; 
+
+    transform: translateY(-2px); 
+
+}
+
+
+
+/* ____________________________________________________________________ */
+
+/* تنسيق اللاصقة (ثابتة، شفافة، في الزاوية اليسرى السفلية) */
+
+/* ____________________________________________________________________ */
+
+.bottom-left-sticker {
+
+    position: fixed;
+
+    bottom: 30px; 
+
+    left: 30px; 
+
+    background-color: #ffc107; 
+
+    color: #343a40; 
+
+    padding: 15px 20px;
+
+    border-radius: 50%; 
+
+    text-align: center;
+
+    font-size: 1rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    opacity: 0.6; 
+
+    z-index: 99; 
+
+    transition: opacity 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+
+}
+
+.bottom-left-sticker:hover {
+
+    opacity: 1.0; 
+
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.8), 0 0 30px rgba(255, 193, 7, 0.4); 
+
+}
+
+
+
+/* إلغاء أكواد الشعار المتحرك القديمة (غير مستخدمة الآن) */
+
+.background-moving-logo, .moving-logo-img {
+
+    display: none !important; 
+
+}
+
+
+
+/* ____________________________________________________________________ */
+
+/* استجابة (Media Queries) من الكود الأصلي */
+
+/* ____________________________________________________________________ */
+
+@media (max-width:1200px){
+
+  .columns-wrap{ grid-template-columns: repeat(4, 1fr); }
+
+}
+
+@media (max-width:800px){
+
+  .columns-wrap{ grid-template-columns: repeat(2, 1fr); }
+
+}
+
+@media (max-width:480px){
+
+  .columns-wrap{ grid-template-columns: 1fr; padding:12px; }
+
+  .page-header h1{ font-size:20px; }
+
+  .column h2{ font-size:14px; }
+
+  .item{ font-size:13px; padding:10px; }
+
+}
