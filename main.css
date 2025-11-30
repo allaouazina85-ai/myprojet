@@ -630,7 +630,7 @@ main {
 /* === إصلاح مكان أيقونات اليمين واليسار === */
 .top-icons-left,
 .top-icons-right {
-    top: 160px !important;
+    top: 230px !important;
 }
 
 /* === إصلاح الخلفية الكبيرة === */
