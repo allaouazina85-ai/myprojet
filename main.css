@@ -751,3 +751,16 @@ body::before {
         padding-top: 220px !important;
     }
 }
+/* إبعاد الشعارين يمين/يسار قليلاً على الهاتف */
+@media (max-width: 480px) {
+
+    /* الشعار اليساري */
+    .logo-council {
+        left: 15px !important;   /* كان 30px، خفضناه قليلاً */
+    }
+
+    /* الشعار اليميني */
+    .logo-president {
+        right: 15px !important;  /* كان 30px، خفضناه قليلاً */
+    }
+}
