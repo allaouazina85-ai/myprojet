@@ -1,453 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="utf-8"> 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>محضر إعداد قائمة النّاجحين نهائيًا - مسابقة على أساس الشهادة</title>
-    
-    <!-- تحميل مكتبة PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;900&display=swap');
-        
-        body {
-            font-family: "Amiri", "Cairo", serif;
-            color: #333;
-            direction: rtl;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding-top: 20px;
-        }
-
-        .document-container {
-            width: 90%;
-            max-width: 950px;
-            margin: 30px auto;
-            padding: 40px;
-            border: 4px solid #ad1457; /* لون مميز للمحضر */
-            background-color: #ffffff; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border-radius: 12px;
-            line-height: 1.8;
-            text-align: right;
-        }
-        
-        .header-info { 
-            text-align: center; 
-            margin-bottom: 30px; 
-            font-size: 1.2em; 
-            font-weight: 700; 
-            line-height: 1.8;
-            color: #880e4f; 
-        }
-
-        .document-title { 
-            text-align: center; 
-            margin: 25px 0 10px; 
-            font-size: 1.6em; 
-            font-weight: 900; 
-            color: #d84315; 
-            border-bottom: 3px solid #d84315;
-            padding-bottom: 15px;
-        }
-
-        .job-details {
-            text-align: center; 
-            font-size: 1.1em; 
-            font-weight: bold; 
-            margin-bottom: 30px; 
-            color: #ad1457;
-        }
-
-        .protocol-intro {
-            background-color: #fce4ec;
-            border-right: 5px solid #ad1457;
-            padding: 15px;
-            margin-bottom: 30px;
-            text-align: justify;
-            font-size: 1.05em;
-        }
-        .protocol-intro span {
-            font-weight: 700;
-            color: #880e4f;
-        }
-
-        .section-header {
-            font-size: 1.25em;
-            font-weight: 900;
-            color: #4caf50;
-            margin: 25px 0 15px;
-            border-bottom: 2px solid #66bb6a;
-            padding-bottom: 5px;
-        }
-        
-        .members-list, .deliberations-list {
-            list-style: none;
-            padding-right: 0;
-            margin: 10px 0 20px;
-        }
-        .members-list li {
-            margin-bottom: 8px;
-            padding-right: 15px;
-            position: relative;
-            font-size: 1em;
-            text-align: justify;
-        }
-        .members-list li::before {
-            content: "•";
-            color: #ad1457;
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-right: -1em;
-            position: absolute;
-            right: 0;
-        }
-
-        .deliberations-list {
-            list-style-type: decimal;
-            padding-right: 20px;
-            font-size: 0.95em;
-        }
-        .deliberations-list li {
-            margin-bottom: 10px;
-            text-align: justify;
-            font-weight: 500;
-        }
-        
-        .approval-statement {
-            font-size: 1.1em;
-            font-weight: 700;
-            margin: 20px 0 30px;
-            padding: 15px;
-            border: 2px dashed #d84315;
-            background-color: #ffe0b2;
-            text-align: center;
-        }
-
-        /* تنسيق الجدول */
-        .documents-table { 
-            width:100%; 
-            border-collapse: collapse; 
-            margin: 15px 0 30px;
-            font-size: 0.9em;
-        }
-        .documents-table th, 
-        .documents-table td { 
-            border: 1px solid #f48fb1; 
-            padding: 10px;
-            text-align: center;
-            vertical-align: middle;
-            line-height: 1.5;
-        }
-        .documents-table th { 
-            background-color: #ad1457; 
-            color: white; 
-            font-weight: 800; 
-        }
-        .documents-table td:nth-child(4) {
-            font-weight: 700;
-            background-color: #fce4ec;
-        }
-        
-        .list-title {
-            font-weight: 700;
-            color: #ad1457;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-
-        /* التذييل والتوقيعات */
-        .closing-section {
-            margin-top: 40px;
-            font-size: 1.05em;
-        }
-        .closing-section p {
-            margin: 10px 0;
-            font-weight: 700;
-        }
-        
-        .signature-blocks {
-            margin-top: 30px; 
-            display: flex; 
-            flex-wrap: wrap;
-            justify-content: space-around; 
-            align-items: flex-start;
-            color: #880e4f;
-            padding-bottom: 15px;
-            border-top: 1px solid #ccc;
-            padding-top: 20px;
-        }
-        .signature-blocks .signature-item {
-            text-align: center;
-            flex-basis: 30%;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        .signature-blocks .signature-item span {
-            display: block;
-            margin-top: 5px;
-            font-weight: 700;
-        }
-
-        .note-footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            text-align: right;
-            font-style: italic;
-            border-top: 1px solid #f0f0f0;
-            padding-top: 10px;
-        }
-
-        /* تنسيق الطباعة (مهم) */
-        @media print {
-            body { background: none; }
-            .document-container { box-shadow: none; border: 1px solid #333; margin: 0; padding: 20px; max-width: none; }
-            .protocol-intro { background-color: #f0f0f0 !important; border-right-color: #333 !important; -webkit-print-color-adjust: exact; }
-            .documents-table th { background-color: #e0e0e0 !important; color: #000 !important; -webkit-print-color-adjust: exact; }
-            .approval-statement { background-color: #f0f0f0 !important; border-color: #333 !important; -webkit-print-color-adjust: exact; }
-            .documents-table td:nth-child(4) { background-color: #f5f5f5 !important; -webkit-print-color-adjust: exact; }
-        }
-
-        /* رسالة التحميل */
-        #loadingMessage {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            z-index: 10000;
-            font-family: 'Amiri', serif;
-            font-size: 16px;
-            text-align: center;
-            display: none;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
-    
-    <div class="document-container">
-        
-        <div class="header-info">
-            <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
-            <p>تحديد المؤسّسة أو الإدارة العموميّة المعنيّة</p>
-        </div>
-        
-        <h3 class="document-title">
-             <span class="arabic-title">مَحْضَرُ اللَّجْنَةِ الْمُكَلَّفَةِ بِإِعْدَادِ قَائِمَةِ النَّاجِحِينَ نِهَائِيًّا فِي الْمُسَابَقَةِ عَلَى أَسَاسِ الشَّهَادَةِ</span>
-        </h3>
-        
-        <p class="job-details">
-            للالتحاق بسلك **...............** رتبة **...............**
-        </p>
-
-        <div class="protocol-intro">
-            <p>
-                في عام **...........** و **.............** وفي **.............** من شهر **.............** انعقد بمقرّ **.....** . ( تحديد مكان الاجتماع ) اجتماع اللجنة المكلّفة باعداد قائمة النّاجحين نهائيا في المسابقة على أساس الشّهادة للالتحاق بسلك **.............** رتبة **..............................**، وذلك طبقا لاحكام القرار/ المقرّر رقم **............** المؤرّخ في **....................** المتضمّن فتح مسابقة على أساس الشّهادة للالتحاق بسلك **.............** رتبة **..............................**
-            </p>
-        </div>
-        
-        <div class="section-header">
-            جدول الأعمال:
-        </div>
-        <ul class="members-list">
-            <li>إعداد قائمة المترشّحين النّاجحين نهائيا في المسابقة على أساس الشّهادة للالتحاق بسلك **..........** رتبة **......** المنظمّة بعنوان سنة **.....** من طرف **....** (بيان المؤسّسة أو الإدارة العموميّة المعنية).</li>
-        </ul>
-
-        <div class="section-header">
-            المداولات:
-        </div>
-        <p>حضر الأعضاء الآتية أسماؤهم :</p>
-        <ul class="members-list">
-            <li>السّيد(ة): **..........** السّلطة التي لها صلاحيّة التّعيين/ السّلطة الوصيّة/ ممثّل أحدهما، **رئيساً**؛</li>
-            <li>السّيد(ة) : **......** ممثّل منتخب عن اللجنة الاداريّة المتساويّة الاعضاء المختصّة ازاء السّلك / الرّتبة المعنية، **عضواً** ؛</li>
-            <li>السّيد(ة): **...........................** عضو لجنة المقابلة **عضواً** .</li>
-        </ul>
-        
-        <p>إنّ اللجنة وبعد :</p>
-        <ol class="deliberations-list">
-            <li>تثبيت إشهار القرار / المقرّر رقم **............** المؤرّخ في **.....................** المتضمّن فتح مسابقة على أساس الشّهادات للالتحاق برتبة **....................................**</li>
-            <li>تثبيت عدد المناصب المالية المفتوحة بعنوان المسابقة على أساس الشّهادات، والمحدّدة بـ : **.....** طبقا لـ : **(ذكر المرجع: المخطط السّنوي/ قرار/مقرّر توزيع المناصب(الشّاغرة))**.....</li>
-            <li>دراسة مجموع النّقاط وترتيب المترشّحين حسب درجة الاستحقاق كما يشار إليها في جدول ترتيب المترشّحين في المسابقة على أساس الشّهادة.</li>
-            <li>التأكّد من مجموع الشّروط القانونيّة الاساسية المطلوبة للتّوظيف، لاسيّما الشّهادات والمؤهّلات المشترطة للمشاركة في المسابقة المذكورة اعلاه.</li>
-        </ol>
-
-        <p class="approval-statement">
-            تُصادق بإجماع أعضائها على قائمة المتّرشحين الناجحين النّهائية المبيّنة أدناه، حسب درجة الاستحقاق وفي حدود المناصب الماليّة الشّاغرة.
-        </p>
-        
-        <p>تُعدّ قائمة المترشّحين النّاجحين حسب درجة الاستحقاق كالتالي :</p>
-        
-        <p class="list-title">1- قائمة النّاجحين النّهائية حسب درجة الاستحقاق:</p>
-        <table class="documents-table">
-            <thead>
-                <tr>
-                    <th style="width: 10%;">الرّقم</th>
-                    <th style="width: 35%;">الاسم واللقب</th>
-                    <th style="width: 30%;">تاريخ الازدياد</th>
-                    <th style="width: 25%;">معيار الفصل في حالة التّساوي</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-            </tbody>
-        </table>
-
-        <p class="list-title">2- قائمة النّاجحين الاحتياطيّة حسب درجة الاستحقاق :</p>
-        <table class="documents-table">
-            <thead>
-                <tr>
-                    <th style="width: 10%;">الرّقم</th>
-                    <th style="width: 35%;">الاسم واللقب</th>
-                    <th style="width: 30%;">تاريخ الازدياد</th>
-                    <th style="width: 25%;">معيار الفصل في حالة التّساوي</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-            </tbody>
-        </table>
-
-        <div class="closing-section">
-            <p>وعند استنفاذ جدول الاعمال رفعت الجلسة على السّاعة **......................** ( اذكر التّوقيت).</p>
-
-            <p style="text-align: center; margin-top: 30px; font-size: 1.1em; font-weight: 900; color: #ad1457;">الإمضاء الواضح لأعضاء اللجنة:</p>
-            
-            <div class="signature-blocks">
-                <div class="signature-item">
-                    <span>السّيد(ة): **........**، رئيساً</span>
-                </div>
-                <div class="signature-item">
-                    <span>السّيد(ة): **................**، عضواً</span>
-                </div>
-                <div class="signature-item">
-                    <span>السّيد(ة): **..................**، عضواً</span>
-                </div>
-            </div>
-            
-            <p>حرّر هذا المحضر لاثبات ما ذكر أعلاه.</p>
-            <p class="note-footer">*مجموع صفحات المحضر يوقّع عليها أعضاء اللجنة.</p>
-        </div>
-
-    </div>
-
-    <!-- إضافة شريط الأزرار الجديد مع تحميل PDF حقيقي -->
-    <script>
-        // إنشاء شريط التنقل الجديد
-        const navigationBar = document.createElement('div');
-        navigationBar.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            gap: 12px;
-            background: rgba(63, 0, 92, 0.95);
-            padding: 15px;
-            border-radius: 50px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-        `;
-
-        navigationBar.innerHTML = `
-            <!-- زر الرجوع -->
-            <button onclick="window.location.href='../index.html'" style="
-                background: linear-gradient(135deg, #ff0000, #cc0000);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 22px;
-                font-weight: bold;
-            " title="العودة إلى index.html">←</button>
-
-            <!-- زر الرئيسية -->
-            <button onclick="window.location.href='../../02_index.html'" style="
-                background: linear-gradient(135deg, #007bff, #0056b3);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="الذهاب إلى 02_index.html">🏠</button>
-
-            <!-- زر الطباعة -->
-            <button onclick="window.print()" style="
-                background: linear-gradient(135deg, #28a745, #1e7e34);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="طباعة الصفحة">🖨️</button>
-
-            <!-- زر التحميل الحقيقي -->
-            <button onclick="downloadAsPDF()" style="
-                background: linear-gradient(135deg, #ffc107, #e0a800);
-                color: white;
-                border: none;
-                width: 55px;
-                height: 55px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-            " title="تحميل كـ PDF">📄</button>
-        `;
-
-        document.body.appendChild(navigationBar);
-
-        // دالة تحميل PDF حقيقية
-        function downloadAsPDF() {
-            // عرض رسالة التحميل
-            document.getElementById('loadingMessage').style.display = 'block';
-            
-            // إخفاء شريط الأزرار مؤقتاً
-            navigationBar.style.display = 'none';
-            
-            // خيارات PDF
-            const element = document.querySelector('.document-container');
-            const opt = {
-                margin: [10, 10, 10, 10],
-                filename: 'محضر_قائمة_الناجحين_النهائية.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            
-            // إنشاء وتحميل PDF
-            html2pdf().set(opt).from(element).save().then(() => {
-                // إعادة إظهار شريط الأزرار
-                navigationBar.style.display = 'flex';
-                document.getElementById('loadingMessage').style.display = 'none';
-            });
-        }
-
-        // إزالة زر العودة القديم
-        const oldBackButton = document.querySelector('.back-button');
-        if (oldBackButton) {
-            oldBackButton.remove();
-        }
-    </script>
-</body>
-</html>
