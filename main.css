@@ -715,3 +715,10 @@ body::before {
         transform: scale(0.8);
     }
 }
+/* إصلاح ظهور الميكروفون بعد التعديلات */
+.president-talk-btn {
+    position: relative !important;
+    z-index: 9999 !important;
+    opacity: 1 !important;
+    display: flex !important;
+}
