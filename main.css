@@ -726,3 +726,28 @@ body::before {
         gap: 12px !important;
     }
 }
+/* === منع تداخل الأيقونات مع العناوين على الهاتف === */
+@media (max-width: 480px) {
+
+    /* إنزال الأيقونات للأسفل */
+    .top-icons-left,
+    .top-icons-right {
+        top: 180px !important;
+    }
+
+    /* رفع العناوين للأعلى */
+    header {
+        padding-top: 20px !important;
+    }
+
+    /* تقليل حجم العناوين حتى لا تلتصق بها الأيقونات */
+    .main-title h1, .main-title h2, .main-title h3 {
+        font-size: 18px !important;
+        margin: 2px 0 !important;
+    }
+
+    /* تقليل ارتفاع الـ MAIN حتى تبقى المساحة واضحة */
+    main {
+        padding-top: 220px !important;
+    }
+}
