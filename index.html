@@ -317,6 +317,60 @@
         .step-circle.hidden-on-zoom {
             opacity: 0.2; 
         }
+        /* ... كل كودك السابق يبقى كما هو ... */
+
+
+/* =============================== */
+/* 📱 إصلاح الجنريك على شاشات الهاتف */
+/* =============================== */
+@media (max-width: 480px) {
+
+    .title-sequence h1 { font-size: 18px !important; }
+    .title-sequence h2 { font-size: 22px !important; }
+    .title-sequence h3 { font-size: 26px !important; }
+
+    .title-sequence {
+        transform: translate(-50%, -60%) !important;
+    }
+
+    .content-presentation h1 {
+        font-size: 20px !important;
+        white-space: normal !important;
+        line-height: 1.4 !important;
+    }
+
+    .circle-carousel {
+        height: 55vh !important;
+    }
+
+    .step-circle {
+        width: 220px !important;
+        height: 140px !important;
+        border-width: 2px !important;
+        position: relative !important;
+        margin: 10px auto !important;
+        transform: none !important;
+    }
+
+    .step-circle i { font-size: 30px !important; }
+    .step-circle span { font-size: 14px !important; }
+
+    .step-circle.zoomed {
+        width: 260px !important;
+        height: 160px !important;
+    }
+
+    .step-circle-content {
+        transform: translate(-50%, -50%) !important;
+    }
+
+    body {
+        overflow: visible !important;
+    }
+}
+
+</style>
+
     </style>
 </head>
 <body>
@@ -463,4 +517,5 @@
     </script>
 </body>
 </html>
+
 
