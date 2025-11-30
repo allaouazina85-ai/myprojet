@@ -1,242 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محضر اللجنة المكلفة بدراسة الطعون</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;800&display=swap" rel="stylesheet">
-
-    <style>
-
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: "Amiri", serif;
-            background-color: #f4f6f8;
-            display: flex;
-            justify-content: center;
-        }
-
-        .document-container {
-            width: 95%;
-            max-width: 900px;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            border: 4px double #003366;
-            box-shadow: 0 0 18px rgba(0,0,0,0.15);
-            line-height: 2.1;
-            font-size: 1.15rem;
-            text-align: justify;
-        }
-
-        .header-info {
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin: 25px 0;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #003366;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 25px;
-            margin-bottom: 35px;
-            font-size: 1rem;
-        }
-
-        table th, table td {
-            border: 1px solid #003366;
-            padding: 8px 6px;
-            text-align: center;
-        }
-
-        table th {
-            background: #d9e7f5;
-            font-weight: 700;
-        }
-
-        .signature-section {
-            margin-top: 40px;
-        }
-
-
-        /* أزرار التحكم */
-        .action-bar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            gap: 12px;
-            z-index: 9999;
-            background: rgba(63, 0, 92, 0.95);
-            padding: 15px;
-            border-radius: 50px;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-            backdrop-filter: blur(10px);
-        }
-
-        .action-btn {
-            width: 55px;
-            height: 55px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 22px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .btn-back   { background: linear-gradient(135deg, #ff0000, #cc0000); }
-        .btn-home   { background: linear-gradient(135deg, #007bff, #0056b3); }
-        .btn-print  { background: linear-gradient(135deg, #28a745, #1e7e34); }
-        .btn-pdf    { background: linear-gradient(135deg, #ffc107, #e0a800); }
-
-        #loadingMessage {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.75);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            display: none;
-            font-size: 18px;
-            z-index: 10000;
-        }
-
-    </style>
-</head>
-<body>
-
-<div class="document-container">
-
-    <div class="header-info">
-        <p>الجمهوريّة الجزائريّة الدّيمقراطيّة الشّعبيّة</p>
-        <p>تحديد المؤسّسة أو الإدارة العموميّة المعنية</p>
-    </div>
-
-    <div class="section-title">
-        محضر اللجنة المكلّفة بدراسة طعون المترشّحين المرفوضة ملفّاتهم
-    </div>
-
-    <p style="text-align:center; font-weight:bold;">
-        في المسابقات على أساس الاختبارات أو الاختبار والفحص المهني  
-        للالتحاق برتبة ............... 
-    </p>
-
-    <div class="article">
-    في عام ............. (تحديد السنة) وفي ......... من شهر .......... وطبقا للقرار/ المقرّر رقم ...... 
-    المؤرّخ في ................ المتضمّن فتح المسابقة على أساس الاختبارات أو الاختبار والفحص المهنيّ 
-    للالتحاق برتبة............، وكذا محضر اللجنة المكلّفة بدراسة ملفّات الترشّح للمسابقات على أساس 
-    الاختبارات أو الاختبار والفحص المهنيّ المؤرّخ في ... ........ .........؛ اجتمعت اللجنة المكلّفة 
-    بدراسة طعون المترشحين المرفوضة ملفّاتهم والبالغ عددها ....... كما هو مدوّن في السجلّ الخاصّ 
-    المفتوح لهذا الغرض.
-    </div>
-
-    <p><strong>حضر الأعضاء الآتية أسماؤهم:</strong></p>
-    <ul>
-        <li>- لقب، اسم ووظيفة (السّلطة التي لها صلاحية التّعيين المؤهّلة قانونا/ ممثّلها)، رئيسا؛</li>
-        <li>- لقب، اسم ووظيفة (ممثلي المؤسّسة أو الإدارة العموميّة المعنية)،............ عضوا؛</li>
-        <li>- لقب، اسم (الممثّلين المنتخبين في اللجنة الإداريّة المتساويّة الأعضاء المختصّة إزاء السّلك/ الرّتبة المعنية بالمسابقة)،................................................................ عضوا؛</li>
-    </ul>
-
-    <p>
-    عند انتهاء أشغالها، اعتمدت اللجنة ملفّات المترشّحين المدوّنة أسماؤهم في الجدول المرفق في طيّه.
-    </p>
-
-    <p style="color:#b30000; font-weight:bold;">ملاحظة: يجب ألاّ يتضمّن محضر اللّجنة وكذا الجدول المرفق به أيّ زيادة أو شطب.</p>
-
-    <!-- جدول 1 -->
-    <h3 class="section-title" style="font-size:1.2rem;">1- طلبات الطّعون المقبولة:</h3>
-
-    <table>
-        <tr>
-            <th>الرّقم التسلسلي</th>
-            <th>تاريخ إيداع الطّعن</th>
-            <th>اسم ولقب المترشّح</th>
-            <th>تاريخ الميلاد</th>
-            <th>المؤهّل أو الشهادة</th>
-            <th>التخصّص</th>
-            <th>الوضعية اتجاه الخدمة الوطنية</th>
-            <th>تاريخ انقضاء التأجيل</th>
-            <th>انقضاء صحيفة السوابق (رقم 3)</th>
-            <th>ملاحظات</th>
-        </tr>
-        <tr><td colspan="10" style="height:45px;"></td></tr>
-        <tr><td colspan="10" style="height:45px;"></td></tr>
-        <tr><td colspan="10" style="height:45px;"></td></tr>
-    </table>
-
-    <!-- جدول 2 -->
-    <h3 class="section-title" style="font-size:1.2rem;">2- طلبات الطّعون غير المقبولة (تأكيد الرفض نهائياً):</h3>
-
-    <table>
-        <tr>
-            <th>الرّقم التسلسلي</th>
-            <th>تاريخ إيداع الطّعن</th>
-            <th>اسم ولقب المترشّح</th>
-            <th>تاريخ الميلاد</th>
-            <th>سبب الرفض بالتفصيل</th>
-            <th>مرجع الرفض (رقم وتاريخ الرسالة)</th>
-            <th>ملاحظات</th>
-        </tr>
-        <tr><td colspan="7" style="height:45px;"></td></tr>
-        <tr><td colspan="7" style="height:45px;"></td></tr>
-        <tr><td colspan="7" style="height:45px;"></td></tr>
-    </table>
-
-    <div class="signature-section">
-        <p>حرّر بـ .................. في ..... .......</p>
-        <p style="margin-top: 15px; font-weight:700;">إمضاء أعضاء اللجنة</p>
-        <p style="margin-top: 10px; font-weight:700;">الإمضاء (من طرف السّلطة الإدارية المؤهّلة)</p>
-    </div>
-
-</div>
-
-<!-- أزرار التحكم -->
-<div class="action-bar">
-    <button class="action-btn btn-back" onclick="window.location.href='../index.html'">←</button>
-    <button class="action-btn btn-home" onclick="window.location.href='../../02_index.html'">🏠</button>
-    <button class="action-btn btn-print" onclick="window.print()">🖨️</button>
-    <button class="action-btn btn-pdf" onclick="downloadAsPDF()">📄</button>
-</div>
-
-<div id="loadingMessage">⏳ جاري إنشاء PDF...</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script>
-
-function downloadAsPDF() {
-    document.getElementById('loadingMessage').style.display = 'block';
-
-    const bar = document.querySelector('.action-bar');
-    bar.style.display = 'none';
-
-    const element = document.querySelector('.document-container');
-    const opt = {
-        margin: 10,
-        filename: 'محضر-اللجنة-دراسة-الطعون.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(element).save().then(() => {
-        bar.style.display = 'flex';
-        document.getElementById('loadingMessage').style.display = 'none';
-    });
-}
-
-</script>
-
-</body>
-</html>
