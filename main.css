@@ -134,7 +134,7 @@ header {
 
 /* تكبير أيقونة الورقة فقط */
 .president-talk-btn i {
-    font-size: 50px;
+    font-size: 60px;
     color: #f7d44c;
 }
 
@@ -678,7 +678,7 @@ body::before {
         gap: 5px !important;
     }
 
-    /* حجم أيقونة البحث – الموقع – الميكروفون */
+    /* حجم أيقونة البحث – الموقع – الورقة */
     .map-btn i,
     .president-talk-btn i {
         font-size: 28px !important;
