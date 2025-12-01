@@ -346,11 +346,31 @@ main {
 /* ================================================================= */
 @media (max-width: 480px) {
 
-  body::before {
-    background-size: 80% auto !important;
-    background-position: center 85% !important;
-    opacity: 0.07 !important;
-}
+/* ================================================================= */
+/*                     📱 نسخة الهاتف – Responsive                   */
+/* ================================================================= */
+@media (max-width:480px) {
+
+    body::before {
+        background: 
+            linear-gradient(90deg,
+                rgba(0, 0, 255, 0.25),
+                rgba(255, 255, 0, 0.25),
+                rgba(255, 0, 0, 0.25),
+                rgba(0, 128, 0, 0.25)
+            ),
+            url('../icons/council_logo.png');
+
+        background-size: 200% 200%, 80% auto !important;
+        background-position: 0% 50%, center 85% !important;
+        animation: gradientAnimation 15s ease infinite alternate !important;
+        opacity: 0.10 !important;
+    }
+
+} /* نهاية media query */
+
+</style>
+
 
     /* الشعارات */
     .president-logo,
