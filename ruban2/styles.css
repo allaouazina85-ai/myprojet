@@ -352,24 +352,6 @@ main {
         border-radius: 50% !important; /* ضمان إضافي للدوائر */
     }
 }
-@media (max-width:480px) {
-
-    /* ===== الخلفية ===== */
-    body::before {
-        background:
-            linear-gradient(90deg,
-                rgba(0, 0, 255, 0.25),
-                rgba(255, 255, 0, 0.25),
-                rgba(255, 0, 0, 0.25),
-                rgba(0, 128, 0, 0.25)
-            ),
-            url('../icons/council_logo.png');
-
-        background-size: 200% 200%, 60% auto !important;
-        background-position: 0% 50%, center 90% !important;
-        animation: gradientAnimation 15s ease infinite alternate !important;
-        opacity: 0.10 !important;
-    }
 
     /* ===== الشعارات الجانبية ===== */
     .president-logo,
@@ -400,7 +382,7 @@ main {
     .back-button {
         position: fixed !important;
         right: 15px !important;
-        bottom: 20px !important;
+        bottom: 15px !important;
         width: auto !important;
         height: 36px !important;
         padding: 6px 15px !important;
