@@ -132,10 +132,10 @@ header {
     transform: scale(1.1);
 }
 
-/* تكبير أيقونة الميكروفون فقط */
+/* تكبير أيقونة الورقة فقط */
 .president-talk-btn i {
-    font-size: 45px;
-    color: #cc0000;
+    font-size: 50px;
+    color: #ffffff;
 }
 
 /* تنسيق أيقونة حول التطبيق */
@@ -143,9 +143,9 @@ header {
     background-color: #3f005c;
     color: white;
     border-radius: 8px;
-    width: auto;
+    width: 200px;
     height: 50px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     padding: 0 15px;
     gap: 8px;
@@ -176,9 +176,9 @@ header {
     background-color: #007bff;
     color: white;
     border-radius: 8px;
-    width: auto;
+    width: 200px;
     height: 50px;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: bold;
     padding: 0 15px;
     gap: 8px;
