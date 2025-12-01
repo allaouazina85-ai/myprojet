@@ -378,9 +378,9 @@ main {
     }
 
    .back-button {
-    width: 70% !important;
+    width: 20% !important;
     height: 18px !important;
-    font-size: 14px !important;
+    font-size: 10px !important;
     right: 50% !important;
     transform: translateX(50%) !important;
     bottom: 20px !important;
