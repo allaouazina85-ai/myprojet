@@ -137,9 +137,6 @@ header {
     width: 35px;   /* العرض */
     height: 50px;  /* الارتفاع */
     background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 /* تنسيق أيقونة حول التطبيق */
 .about-app-btn {
