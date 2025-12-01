@@ -352,7 +352,36 @@ main {
         border-radius: 50% !important; /* ضمان إضافي للدوائر */
     }
 }
-ـ
+/* تنسيق الشاشة الصغيرة */
+@media (max-width:1100px){
+    .container{ gap:20px; grid-template-columns:1fr; margin-top:20px; }
+    .icon{ 
+        width:120px; height:120px;
+        font-size: 0.9rem;
+        max-width: 90%;
+        border-radius: 50% !important;
+    }
+}
+
+
+/* =============================== */
+/* 📱 كود الهاتف فقط يبدأ هنا     */
+/* =============================== */
+@media (max-width:480px) {
+
+    /* ===== الشعارات الجانبية ===== */
+    .president-logo,
+    .council-logo-fixed {
+        width: 60px !important;
+        top: 10px !important;
+    }
+
+    .president-logo { right: 10px !important; }
+    .council-logo-fixed { left: 10px !important; }
+
+    /* ===== العناوين ===== */
+    .main-title h1,
+    .main-title h2,
     .main-title h3 {
         font-size: 18px !important;
         margin: 3px 0 !important;
@@ -419,8 +448,7 @@ main {
         line-height: 1.2 !important;
     }
 
-    /* إصلاح التمرير */
     body {
         overflow-x: hidden !important;
     }
-}
+}  
