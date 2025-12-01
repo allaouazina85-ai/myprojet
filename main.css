@@ -143,11 +143,11 @@ header {
     background-color: #3f005c;
     color: white;
     border-radius: 8px;
-    width: 200px;
+    width: auto;
     height: 50px;
     font-size: 12px;
     font-weight: bold;
-    padding: 0 15px;
+    padding: 0 8px;
     gap: 8px;
     display: flex;
     align-items: center;
@@ -176,11 +176,11 @@ header {
     background-color: #007bff;
     color: white;
     border-radius: 8px;
-    width: 200px;
+    width: auto;
     height: 50px;
     font-size: 12px;
     font-weight: bold;
-    padding: 0 15px;
+    padding: 0 8px;
     gap: 8px;
     display: flex;
     align-items: center;
