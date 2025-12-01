@@ -134,8 +134,8 @@ header {
 
 /* حجم الورقة (زر كلمة الرئيس) */
 .president-talk-btn {
-    width: 80px;   /* العرض */
-    height: 80px;  /* الارتفاع */
+    width: 35px;   /* العرض */
+    height: 50px;  /* الارتفاع */
     background-color: #ffffff;
     border: 2px solid #cc0000;
     border-radius: 12px;
