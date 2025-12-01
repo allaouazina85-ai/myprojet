@@ -132,12 +132,17 @@ header {
     transform: scale(1.1);
 }
 
-/* تكبير أيقونة الورقة فقط */
-.president-talk-btn i {
-    font-size: 60px;
-    color: #f7d44c;
+/* حجم الورقة (زر كلمة الرئيس) */
+.president-talk-btn {
+    width: 80px;   /* العرض */
+    height: 80px;  /* الارتفاع */
+    background-color: #ffffff;
+    border: 2px solid #cc0000;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
 /* تنسيق أيقونة حول التطبيق */
 .about-app-btn {
     background-color: #3f005c;
