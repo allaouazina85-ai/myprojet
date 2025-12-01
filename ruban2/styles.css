@@ -352,20 +352,7 @@ main {
         border-radius: 50% !important; /* ضمان إضافي للدوائر */
     }
 }
-
-    /* ===== الشعارات الجانبية ===== */
-    .president-logo,
-    .council-logo-fixed {
-        width: 60px !important;
-        top: 10px !important;
-    }
-
-    .president-logo { right: 10px !important; }
-    .council-logo-fixed { left: 10px !important; }
-
-    /* ===== العناوين ===== */
-    .main-title h1,
-    .main-title h2,
+ـ
     .main-title h3 {
         font-size: 18px !important;
         margin: 3px 0 !important;
