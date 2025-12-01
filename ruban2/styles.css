@@ -346,12 +346,11 @@ main {
 /* ================================================================= */
 @media (max-width: 480px) {
 
-    /* الخلفية */
-    body::before {
-        background-size: 120% auto !important;
-        background-position: center 40% !important;
-        opacity: 0.10 !important;
-    }
+  body::before {
+    background-size: 80% auto !important;
+    background-position: center 85% !important;
+    opacity: 0.07 !important;
+}
 
     /* الشعارات */
     .president-logo,
@@ -378,26 +377,28 @@ main {
         padding-top: 80px !important;
     }
 
-    /* زر العودة */
-    .back-button {
-        width: 85% !important;
-        right: 50% !important;
-        transform: translateX(50%) !important;
-        height: 45px !important;
-        font-size: 16px !important;
-        bottom: 12px !important;
-        border-radius: 10px !important;
-    }
+   .back-button {
+    width: 70% !important;
+    height: 36px !important;
+    font-size: 14px !important;
+    right: 50% !important;
+    transform: translateX(50%) !important;
+    bottom: 20px !important;
+    border-radius: 8px !important;
+    padding: 6px 10px !important;
+}
 
-    /* اللاصقة */
-    .bottom-left-sticker {
-        padding: 8px 12px !important;
-        bottom: 12px !important;
-        left: 12px !important;
-        border-radius: 8px !important;
-        font-size: 12px !important;
-        opacity: 0.6 !important;
-    }
+
+   .bottom-left-sticker {
+    display: block !important;
+    padding: 6px 10px !important;
+    bottom: 20px !important;
+    left: 15px !important;
+    font-size: 11px !important;
+    opacity: 0.6 !important;
+    border-radius: 8px !important;
+}
+
 
     /* بطاقات الدخول */
     .portal-selection {
