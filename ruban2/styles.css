@@ -352,3 +352,106 @@ main {
         border-radius: 50% !important; /* ضمان إضافي للدوائر */
     }
 }
+@media (max-width:480px) {
+
+    /* ===== الخلفية ===== */
+    body::before {
+        background:
+            linear-gradient(90deg,
+                rgba(0, 0, 255, 0.25),
+                rgba(255, 255, 0, 0.25),
+                rgba(255, 0, 0, 0.25),
+                rgba(0, 128, 0, 0.25)
+            ),
+            url('../icons/council_logo.png');
+
+        background-size: 200% 200%, 60% auto !important;
+        background-position: 0% 50%, center 90% !important;
+        animation: gradientAnimation 15s ease infinite alternate !important;
+        opacity: 0.10 !important;
+    }
+
+    /* ===== الشعارات الجانبية ===== */
+    .president-logo,
+    .council-logo-fixed {
+        width: 60px !important;
+        top: 10px !important;
+    }
+
+    .president-logo { right: 10px !important; }
+    .council-logo-fixed { left: 10px !important; }
+
+    /* ===== العناوين ===== */
+    .main-title h1,
+    .main-title h2,
+    .main-title h3 {
+        font-size: 18px !important;
+        margin: 3px 0 !important;
+        line-height: 1.3 !important;
+        padding: 0 8px !important;
+        text-align: center !important;
+    }
+
+    header {
+        padding-top: 80px !important;
+    }
+
+    /* ===== زر الرجوع ===== */
+    .back-button {
+        position: fixed !important;
+        right: 15px !important;
+        bottom: 20px !important;
+        width: auto !important;
+        height: 36px !important;
+        padding: 6px 15px !important;
+        font-size: 13px !important;
+        border-radius: 6px !important;
+        transform: none !important;
+    }
+
+    /* ===== اللاصقة ===== */
+    .bottom-left-sticker {
+        display: block !important;
+        bottom: 20px !important;
+        left: 15px !important;
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+        border-radius: 8px !important;
+        opacity: 0.65 !important;
+    }
+
+    /* ===== الحاويات ===== */
+    main {
+        width: 95% !important;
+        margin-top: 10px !important;
+        padding: 10px 0 !important;
+    }
+
+    /* ===== البطاقات الدائرية ===== */
+    .container {
+        width: 95% !important;
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        margin-top: 20px !important;
+    }
+
+    .icon {
+        width: 110px !important;
+        height: 110px !important;
+        font-size: 0.75rem !important;
+        border-radius: 50% !important;
+        padding: 5px !important;
+        margin: 0 auto !important;
+    }
+
+    .icon span {
+        font-size: 0.75rem !important;
+        padding: 0 5px !important;
+        line-height: 1.2 !important;
+    }
+
+    /* إصلاح التمرير */
+    body {
+        overflow-x: hidden !important;
+    }
+}
