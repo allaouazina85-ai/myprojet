@@ -379,7 +379,7 @@ main {
 
    .back-button {
     width: 70% !important;
-    height: 36px !important;
+    height: 18px !important;
     font-size: 14px !important;
     right: 50% !important;
     transform: translateX(50%) !important;
