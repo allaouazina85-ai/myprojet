@@ -317,42 +317,54 @@
         .step-circle.hidden-on-zoom {
             opacity: 0.2; 
         }
-     @media (max-width: 480px) {
+  @media (max-width: 480px) {
 
 /* =============== RESET PHONE VIEW =============== */
 
+/* تصغير عام للنصوص داخل الجنريك */
 * {
     transform: none !important;
 }
 
+/* العنوان الكبير */
 .content-presentation h1 {
-    font-size: 20px !important;
+    font-size: 16px !important;
     line-height: 1.4 !important;
     white-space: normal !important;
+    padding: 0 10px !important;
 }
 
+/* تصغير مساحة العرض */
 .circle-carousel {
     height: auto !important;
-    padding-top: 20px !important;
+    padding-top: 10px !important;
 }
 
+/* 🔥 تصغير الدوائر بشكل مناسب للهاتف */
 .step-circle {
-    width: 55% !important;
-    height: 130px !important;
-    margin: 12px auto !important;
+    width: 75% !important;      /* عرض أصغر */
+    height: 110px !important;   /* ارتفاع أقل */
+    margin: 8px auto !important;
     position: relative !important;
     border-width: 2px !important;
     opacity: 1 !important;
+    border-radius: 20px !important; /* شكل لطيف للهاتف */
 }
 
+/* 🔥 الأيقونة داخل الدائرة – تصغير قوي */
 .step-circle i {
-    font-size: 28px !important;
+    font-size: 22px !important;
+    margin-bottom: 4px !important;
 }
 
+/* 🔥 النص داخل الدائرة – حجم صغير وواضح */
 .step-circle span {
-    font-size: 14px !important;
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+    padding: 0 5px !important;
 }
 
+/* إزالة التموضع القديم */
 .step-circle[data-step] {
     top: auto !important;
     left: auto !important;
@@ -360,31 +372,33 @@
     bottom: auto !important;
 }
 
+/* 🔥 حجم أصغر عند التكبير */
 .step-circle.zoomed {
-    width: 70% !important;
-    height: 150px !important;
+    width: 85% !important;
+    height: 130px !important;
     border-width: 2px !important;
 }
 
+/* تنظيم المحتوى */
 .content-presentation {
     margin-top: 0 !important;
     opacity: 1 !important;
 }
 
+/* السماح بالتمرير */
 body {
     overflow-y: auto !important;
 }
 
-/* تصغير الشعار الخلفي */
+/* الخلفية */
 .page-background {
-    background-size: 45% !important;
-    background-position: center 70% !important;
-    opacity: 0.08 !important;
-    background-repeat: no-repeat !important;
-    filter: grayscale(100%) blur(1px);
+    background-size: 40% !important;
+    background-position: center 80% !important;
+    opacity: 0.05 !important;
 }
 
 }
+
 
 </style>
 
@@ -534,6 +548,7 @@ body {
     </script>
 </body>
 </html>
+
 
 
 
