@@ -135,7 +135,7 @@ header {
 /* تكبير أيقونة الورقة فقط */
 .president-talk-btn i {
     font-size: 50px;
-    color: #ffffff;
+    color: #f7d44c;
 }
 
 /* تنسيق أيقونة حول التطبيق */
@@ -691,7 +691,7 @@ body::before {
 
     /* تصغير زر التواصل وزر حول التطبيق */
     .contact-btn, .about-app-btn {
-        padding: 0 10px !important;
+        padding: 0 8px !important;
         height: 40px !important;
         font-size: 14px !important;
     }
