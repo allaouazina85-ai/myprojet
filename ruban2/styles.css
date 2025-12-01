@@ -341,130 +341,14 @@ main {
     box-shadow:0 18px 38px rgba(0,0,0,0.28);
 }
 
-/* ================================================================= */
-/*                     📱 نسخة الهاتف – Responsive                   */
-/* ================================================================= */
-@media (max-width:480px) {
-
-    body::before {
-        background: 
-            linear-gradient(90deg,
-                rgba(0, 0, 255, 0.25),
-                rgba(255, 255, 0, 0.25),
-                rgba(255, 0, 0, 0.25),
-                rgba(0, 128, 0, 0.25)
-            ),
-            url('../icons/council_logo.png');
-
-        background-size: 200% 200%, 80% auto !important;
-        background-position: 0% 50%, center 85% !important;
-        animation: gradientAnimation 15s ease infinite alternate !important;
-        opacity: 0.10 !important;
-    }
-
-} /* نهاية media query */
-
-</style>
-
-
-    /* الشعارات */
-    .president-logo,
-    .council-logo-fixed {
-        width: 70px !important;
-        top: 10px !important;
-    }
-
-    .president-logo { right: 10px !important; }
-    .council-logo-fixed { left: 10px !important; }
-
-    /* العناوين */
-    .main-title h1,
-    .main-title h2,
-    .main-title h3 {
-        font-size: 20px !important;
-        margin: 3px 0 !important;
-        line-height: 1.3 !important;
-        padding: 0 5px !important;
-        text-align: center !important;
-    }
-
-    header {
-        padding-top: 80px !important;
-    }
-
-   .back-button {
-    position: fixed !important;
-    right: 15px !important;      /* الهامش من اليمين */
-    bottom: 20px !important;     /* المسافة من الأسفل */
-    
-    transform: none !important;  /* إلغاء التمركز */
-    
-    width: auto !important;      /* الحجم الطبيعي */
-    padding: 8px 18px !important;
-    
-    font-size: 14px !important;
-    border-radius: 8px !important;
-}
-
-
-
-   .bottom-left-sticker {
-    display: block !important;
-    padding: 6px 10px !important;
-    bottom: 20px !important;
-    left: 15px !important;
-    font-size: 11px !important;
-    opacity: 0.6 !important;
-    border-radius: 8px !important;
-}
-
-
-    /* بطاقات الدخول */
-    .portal-selection {
-        flex-direction: column !important;
-        gap: 20px !important;
-        margin-top: 20px !important;
-    }
-
-    .portal-card {
-        width: 90% !important;
-        margin: 0 auto !important;
-        padding: 20px !important;
-    }
-
-    .portal-card h3 {
-        font-size: 1.3rem !important;
-    }
-
-    .portal-btn {
-        font-size: 1rem !important;
-        padding: 10px 20px !important;
-    }
-
-    /* الأيقونات الدائرية */
-    .container {
-        grid-template-columns: 1fr !important;
-        gap: 20px !important;
-        width: 95% !important;
-    }
-
-    .icon {
-        width: 110px !important;
-        height: 110px !important;
-        font-size: 0.75rem !important;
-        border-radius: 50% !important;
-        margin: 0 auto !important;
-    }
-
-    .icon span {
-        font-size: 0.75rem !important;
-    }
-
-    :root {
-        --icon-size: 110px !important;
-    }
-
-    body {
-        overflow-x: hidden !important;
+/* تنسيق الشاشة الصغيرة */
+@media (max-width:1100px){
+    .container{ gap:20px; grid-template-columns:1fr; margin-top:20px; }
+    /* 🚨 تقليل حجم الدائرة على الشاشات الصغيرة */
+    .icon{ 
+        width:120px; height:120px; 
+        font-size: 0.9rem; 
+        max-width: 90%; 
+        border-radius: 50% !important; /* ضمان إضافي للدوائر */
     }
 }
