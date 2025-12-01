@@ -137,8 +137,6 @@ header {
     width: 35px;   /* العرض */
     height: 50px;  /* الارتفاع */
     background-color: #ffffff;
-    border: 2px solid #cc0000;
-    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
