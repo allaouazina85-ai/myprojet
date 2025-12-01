@@ -378,15 +378,19 @@ main {
     }
 
    .back-button {
-    width: 20% !important;
-    height: 18px !important;
-    font-size: 10px !important;
-    right: 5% !important;
-    transform: translateX(5%) !important;
-    bottom: 20px !important;
+    position: fixed !important;
+    right: 15px !important;      /* الهامش من اليمين */
+    bottom: 20px !important;     /* المسافة من الأسفل */
+    
+    transform: none !important;  /* إلغاء التمركز */
+    
+    width: auto !important;      /* الحجم الطبيعي */
+    padding: 8px 18px !important;
+    
+    font-size: 14px !important;
     border-radius: 8px !important;
-    padding: 6px 10px !important;
 }
+
 
 
    .bottom-left-sticker {
