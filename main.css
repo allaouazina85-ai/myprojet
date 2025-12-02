@@ -147,19 +147,10 @@ header {
     transition: 0.3s;
 }
 
-/* ===== الأيقونة داخل الورقة ===== */
+/* ===== اأيقونة الورقة ===== */
 .president-talk-btn i {
     font-size: 30px;                /* حجم الأيقونة */
     color: #FFD700 !important;      /* أصفر مطارد (ذهبي قوي) */
-}
-
-/* ===== تأثير عند المرور ===== */
-.president-talk-btn:hover {
-    background-color: #cc0000;      
-    border-color: #990000;
-}
-.president-talk-btn:hover i {
-    color: #ffffff !important;      /* تصبح بيضاء عند المرور */
 }
 
 /* ===== تعديل مكان الفقاعة مع الشكل الجديد ===== */
