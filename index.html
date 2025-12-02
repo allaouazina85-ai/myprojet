@@ -317,6 +317,38 @@
         .step-circle.hidden-on-zoom {
             opacity: 0.2; 
         }
+        /* 🌟 تحسين سلاسة حركة العناوين */
+@keyframes circular-reveal {
+    0%   { opacity: 0; transform: translate(-50%, 0) scale(0.6); }
+    25%  { opacity: 1; transform: translate(-50%, 0) scale(1.0); }
+    60%  { opacity: 1; transform: translate(-50%, 0) scale(1.25); }
+    100% { opacity: 0; transform: translate(-50%, 0) scale(1.25); }
+}
+
+/* 🌟 جعل الدوران أبطأ وأكثر نعومة */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.step-circle {
+    animation-duration: 21s !important;     /* كان 15s — أصبح أهدأ */
+    animation-timing-function: linear;
+}
+
+/* 🌟 تحسين انتقال الزوم */
+.step-circle.zoomed {
+    transition:
+        transform 1.3s cubic-bezier(.4, 0, .2, 1),
+        top 1.3s ease,
+        left 1.3s ease,
+        width 1.3s ease,
+        height 1.3s ease,
+        border-radius 1.3s ease,
+        background-color 0.7s ease,
+        box-shadow 0.7s ease;
+}
+
        /* ========================================= */
       /* === تحسين واجهة الجنريك على الهاتف فقط === */
       /* ========================================= */
@@ -511,6 +543,7 @@
     </script>
 </body>
 </html>
+
 
 
 
