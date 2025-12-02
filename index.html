@@ -317,97 +317,7 @@
         .step-circle.hidden-on-zoom {
             opacity: 0.2; 
         }
-/* ========================================= */
-/* 📱 إعادة بناء صفحة الجنريك للهاتف فقط */
-/* ========================================= */
-@media (max-width: 480px) {
 
-    /* إصلاح الخط */
-    body {
-        overflow-y: auto !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
-    /* العنوان الرئيسي */
-    .content-presentation h1 {
-        font-size: 16px !important;
-        line-height: 1.4 !important;
-        white-space: normal !important;
-        padding: 0 10px !important;
-        margin-top: 10px !important;
-    }
-
-    /* إصلاح منطقة الدوائر */
-    .circle-carousel {
-        height: auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-        padding-bottom: 30px !important;
-        margin-top: 20px !important;
-    }
-
-    /* الدائرة */
-    .step-circle {
-        width: 85% !important;
-        height: 60px !important;
-        position: relative !important;
-        margin: 0 auto !important;
-        border-radius: 9px !important;
-        border-width: 2px !important;
-        opacity: 1 !important;
-        transform: none !important;
-        animation: none !important;
-    }
-
-    /* أيقونة الدائرة */
-    .step-circle i {
-        font-size: 12px !important;
-        margin-bottom: 6px !important;
-    }
-
-    /* نص الدائرة */
-    .step-circle span {
-        font-size: 7px !important;
-        line-height: 1.3 !important;
-        padding: 0 8px !important;
-        display: block !important;
-    }
-
-    /* إلغاء المواقع المطلقة للدوائر */
-    .step-circle[data-step] {
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        bottom: auto !important;
-    }
-
-    /* حالة الزوم */
-    .step-circle.zoomed {
-        width: 90% !important;
-        height: 140px !important;
-        transform: none !important;
-    }
-
-    /* إصلاح العنوان الثلاثي (intro) */
-    .title-sequence h1,
-    .title-sequence h2,
-    .title-sequence h3 {
-        font-size: 18px !important;
-        transform: translate(-50%, -60%) !important;
-    }
-
-    /* الخلفية الخلفية */
-    .page-background {
-        background-size: 30% !important;
-        background-position: center 85% !important;
-        opacity: 0.05 !important;
-        background-repeat: no-repeat !important;
-        filter: grayscale(100%) blur(1px);
-    }
-
-}
 
 </style>
 
@@ -415,3 +325,4 @@
 <body>
 
   
+
