@@ -317,6 +317,53 @@
         .step-circle.hidden-on-zoom {
             opacity: 0.2; 
         }
+       /* ========================================= */
+      /* === تحسين واجهة الجنريك على الهاتف فقط === */
+      /* ========================================= */
+@media (max-width: 480px) {
+
+    /* 1) تصغير العناوين */
+    .title-sequence h1 { font-size: 22px !important; }
+    .title-sequence h2 { font-size: 26px !important; }
+    .title-sequence h3 { font-size: 30px !important; }
+
+    /* 2) تصغير عنوان المحتوى */
+    .content-presentation h1 {
+        font-size: 22px !important;
+        margin-bottom: 15px !important;
+        white-space: normal !important;
+        text-align: center !important;
+        max-width: 95% !important;
+    }
+
+    /* 3) تصغير حجم الدوائر */
+    .step-circle {
+        width: 260px !important;
+        height: 150px !important;
+        border-width: 3px !important;
+    }
+
+    /* 4) تصغير الأيقونات داخل الدوائر */
+    .step-circle i {
+        font-size: 40px !important;
+    }
+
+    /* 5) تعديل الخط داخل الدائرة */
+    .step-circle span {
+        font-size: 14px !important;
+        line-height: 1.3 !important;
+    }
+
+    /* 6) رفع المحتوى قليلاً */
+    .content-presentation {
+        margin-top: -40px !important;
+    }
+
+    /* 7) تكبير منطقة اللمس لتسهيل الضغط */
+    body {
+        padding: 10px !important;
+    }
+}   
     </style>
 </head>
 <body>
@@ -459,9 +506,11 @@
 
             // مراقب النقر (Click Listener) للانتقال الفوري
             document.body.addEventListener('click', goToMainPage);
-        });
+        }); 
+     
     </script>
 </body>
 </html>
+
 
 
