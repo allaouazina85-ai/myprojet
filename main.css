@@ -138,11 +138,6 @@ header {
     color: #B87333 !important;      /* أصفر مطارد (ذهبي قوي) */
 }
 
-/* ===== تعديل مكان الفقاعة مع الشكل الجديد ===== */
-.president-talk-btn .icon-tooltip {
-    left: 90px !important;          /* لأن الورقة أصبحت أعرض */
-}
-
 /* تنسيق أيقونة حول التطبيق */
 .about-app-btn {
     background-color: #3f005c;
@@ -182,7 +177,7 @@ header {
     color: white;
     border-radius: 8px;
     width: auto;
-    height: 50px;
+    height: 40px;
     font-size: 12px;
     font-weight: bold;
     padding: 0 8px;
@@ -251,7 +246,7 @@ header {
 
 /* تنسيق أيقونة الموقع */
 .map-btn i {
-    font-size: 50px;
+    font-size: 40px;
     color: #4CAF50;
 }
 
@@ -271,7 +266,7 @@ header {
     background-color: #1e88e5;
     color: white;
     border-radius: 50%;
-    width: 50px;
+    width: 40px;
     height: 50px;
     font-size: 24px;
     padding: 0;
