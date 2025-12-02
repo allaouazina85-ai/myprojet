@@ -132,21 +132,6 @@ header {
     transform: scale(1.1);
 }
 
-/* ===== شكل الورقة (زر كلمة الرئيس) ===== */
-.president-talk-btn {
-    width: auto;                    /* العرض تلقائي */
-    height: 50px;                   /* نفس ارتفاع أيقونة حول التطبيق */
-    background-color: #ffffff;      /* خلفية الورقة */
-    border: 2px solid #cc0000;      /* إطار أحمر */
-    border-radius: 10px;            /* شكل الورقة */
-    padding: 0 18px;                /* توسعة داخلية */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;                       /* مسافة بين الأيقونة والنص إذا وجد */
-    transition: 0.3s;
-}
-
 /* ===== اأيقونة الورقة ===== */
 .president-talk-btn i {
     font-size: 30px;                /* حجم الأيقونة */
