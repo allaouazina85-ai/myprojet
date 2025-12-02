@@ -681,7 +681,7 @@ body::before {
     /* حجم أيقونة البحث – الموقع – الورقة */
     .map-btn i,
     .president-talk-btn i {
-        font-size: 25px !important;
+        font-size: 40px !important;
     }
     .search-btn {
         width: 40px !important;
