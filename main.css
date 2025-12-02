@@ -685,14 +685,14 @@ body::before {
     }
     .search-btn {
         width: 40px !important;
-        height: 40px !important;
+        height: 30px !important;
         font-size: 12px !important;
     }
 
     /* تصغير زر التواصل وزر حول التطبيق */
     .contact-btn, .about-app-btn {
         padding: 0 8px !important;
-        height: 40px !important;
+        height: 30px !important;
         font-size: 14px !important;
     }
 
@@ -762,22 +762,5 @@ body::before {
     /* الشعار اليميني */
     .logo-president {
         right: 10px !important;  /* كان 30px، خفضناه قليلاً */
-    }
-}
-@media (max-width: 480px) {
-
-    /* تصغير حجم أيقونة كلمة الرئيس */
-    .president-talk-btn i {
-        font-size: 22px !important;   /* صغّرتها باش ما تتلاصقش */
-    }
-
-    /* زيادة المسافة بين الأيقونات اليسار */
-    .top-icons-left {
-        gap: 12px !important;         /* بدل 5px */
-    }
-
-    /* زيادة المسافة بين الأيقونات اليمين */
-    .top-icons-right {
-        gap: 12px !important;         /* باش ما يتلاصقوش */
     }
 }
