@@ -132,12 +132,41 @@ header {
     transform: scale(1.1);
 }
 
-/* حجم الورقة (زر كلمة الرئيس) */
+/* ===== شكل الورقة (زر كلمة الرئيس) ===== */
 .president-talk-btn {
-    width: 35px;   /* العرض */
-    height: 50px;  /* الارتفاع */
-    background-color: #ffffff;
+    width: auto;                    /* العرض تلقائي */
+    height: 50px;                   /* نفس ارتفاع أيقونة حول التطبيق */
+    background-color: #ffffff;      /* خلفية الورقة */
+    border: 2px solid #cc0000;      /* إطار أحمر */
+    border-radius: 10px;            /* شكل الورقة */
+    padding: 0 18px;                /* توسعة داخلية */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;                       /* مسافة بين الأيقونة والنص إذا وجد */
+    transition: 0.3s;
 }
+
+/* ===== الأيقونة داخل الورقة ===== */
+.president-talk-btn i {
+    font-size: 30px;                /* حجم الأيقونة */
+    color: #FFD700 !important;      /* أصفر مطارد (ذهبي قوي) */
+}
+
+/* ===== تأثير عند المرور ===== */
+.president-talk-btn:hover {
+    background-color: #cc0000;      
+    border-color: #990000;
+}
+.president-talk-btn:hover i {
+    color: #ffffff !important;      /* تصبح بيضاء عند المرور */
+}
+
+/* ===== تعديل مكان الفقاعة مع الشكل الجديد ===== */
+.president-talk-btn .icon-tooltip {
+    left: 90px !important;          /* لأن الورقة أصبحت أعرض */
+}
+
 /* تنسيق أيقونة حول التطبيق */
 .about-app-btn {
     background-color: #3f005c;
